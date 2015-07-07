@@ -4,11 +4,12 @@ import DocumentTitle from "react-document-title";
 export default class HTMLDocument extends Component {
   static propTypes = {
     markup: PropTypes.string.isRequired,
-    js: PropTypes.array.isRequired
+    js: PropTypes.array.isRequired,
+    payload: PropTypes.string
   }
 
   render() {
-    const { markup, js } = this.props;
+    const { markup, js, payload } = this.props;
 
     return (
       <html lang="en">
@@ -19,6 +20,10 @@ export default class HTMLDocument extends Component {
         <div
           id="app"
           dangerouslySetInnerHTML={{ __html: markup }} />
+        <script
+          type="application/json"
+          id="__payloadData__"
+          dangerouslySetInnerHTML={{ __html: payload }} />
         { js.map((src, key) => (
           <script key={ key } src={ src } />
         )) }

@@ -10,4 +10,4 @@ router.post("/graph", function* (next) {
   this.body = yield graphql(schema, query);
 });
 
-export default router;
+export default () => router.middleware();

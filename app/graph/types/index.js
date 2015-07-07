@@ -1,0 +1,1 @@
+export userType from "./userType";

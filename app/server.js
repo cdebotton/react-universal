@@ -24,7 +24,7 @@ app.use(errors());
 app.use(compress());
 app.use(bodyparser());
 app.use(serveStatic(path.join(__dirname, "../public")));
-app.use(graph());
+app.use(graph.middleware());
 app.use(react());
 
 const server = http.createServer(app.callback());

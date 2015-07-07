@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from "react";
 import radium from "radium";
+import { Connector } from "redux/react";
+import { userActions } from "../actions";
 
 @radium
-export default class Home extends Component {
+class Home extends Component {
   static propTypes = {
     children: PropTypes.any
   }
@@ -15,6 +17,28 @@ export default class Home extends Component {
         <h2>Home</h2>
         <p>Hello!</p>
       </div>
+    );
+  }
+}
+
+const select = (state) => {
+  return {
+    users: state.users
+  };
+};
+
+export default class HomeContainer {
+  render() {
+    return (
+      <Connector select={ select }>
+        { ({ users, dispatch }) => (
+          <Home
+            actions={ Object.assign({},
+              bindActionCreators(userActions, dispatch)
+            ) }
+            users={ users } />
+        ) }
+      </Connector>
     );
   }
 }

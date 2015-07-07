@@ -1,10 +1,13 @@
 import { graphql } from "graphql";
-import schema from "./graph/schema";
+import Router from "koa-router";
+import schema from "../graph/schema";
 
-export default function () {
-  return function* (next) {
-    const { query } = this.request.body;
+const router = new Router();
 
-    this.body = yield graphql(schema, query);
-  };
-}
+router.post("/graph", function* (next) {
+  const { query } = this.request.body;
+
+  this.body = yield graphql(schema, query);
+});
+
+export default router;

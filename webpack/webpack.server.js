@@ -32,6 +32,9 @@ module.exports = {
       test: /\.json$/,
       loader: "json"
     }, {
+      test: /\.(css|styl)$/,
+      loader: "style!css|stylus"
+    }, {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: "babel?stage=0&optional=runtime"
@@ -39,6 +42,10 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin()
-  ]
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NormalModuleReplacementPlugin(/\.(css|styl)$/i, "node-noop")
+  ],
+  stylus: {
+    use: [require("nib")()]
+  }
 };

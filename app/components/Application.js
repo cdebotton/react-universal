@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import radium from "radium";
+import StyleSheet from "../utils/globals.styl";
 
 @radium
 export default class Application extends Component {
@@ -22,6 +23,7 @@ export default class Application extends Component {
 const styles = {
   base: {
     backgroundColor: "red",
+    cursor: "pointer",
     ":hover": {
       backgroundColor: "green"
     }

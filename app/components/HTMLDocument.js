@@ -4,17 +4,21 @@ import DocumentTitle from "react-document-title";
 export default class HTMLDocument extends Component {
   static propTypes = {
     markup: PropTypes.string.isRequired,
-    js: PropTypes.array.isRequired,
+    js: PropTypes.array,
+    css: PropTypes.array,
     payload: PropTypes.string
   }
 
   render() {
-    const { markup, js, payload } = this.props;
+    const { markup, js, css, payload } = this.props;
 
     return (
       <html lang="en">
       <head>
         <title>{ DocumentTitle.rewind() }</title>
+        { css && css.map((href, key) => (
+          <link key={ key } rel="stylesheet" href={ href } />
+        )) }
       </head>
       <body>
         <div
@@ -24,7 +28,7 @@ export default class HTMLDocument extends Component {
           type="application/json"
           id="__payloadData__"
           dangerouslySetInnerHTML={{ __html: payload }} />
-        { js.map((src, key) => (
+        { js && js.map((src, key) => (
           <script key={ key } src={ src } />
         )) }
       </body>

@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
 var fs = require("fs");
 
@@ -30,9 +31,12 @@ module.exports = {
       test: /\.json$/,
       loader: "json"
     }, {
+      test: /\.(css|styl)$/,
+      loader: PRODUCTION ? ExtractTextPlugin.extract("style", "css!stylus") : "style!css!stylus"
+    }, {
       test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ["react-hot", "babel?stage=0&optional=runtime"]
+      loader: "react-hot!babel?stage=0&optional=runtime"
     }]
   },
   plugins: [
@@ -49,6 +53,7 @@ module.exports = {
         screw_ie8: true
       }
     }) : noop(),
+    PRODUCTION ? new ExtractTextPlugin("stylesheets/[chunkhash].css") : noop(),
     function () {
       this.plugin("done", function(stats) {
         var json = stats.toJson();
@@ -72,5 +77,8 @@ module.exports = {
         fs.writeFileSync(FILEPATH, JSON.stringify(assets));
       });
     }
-  ]
+  ],
+  stylus: {
+    use: [require("nib")()]
+  }
 };

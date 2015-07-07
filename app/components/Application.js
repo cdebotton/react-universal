@@ -13,19 +13,11 @@ export default class Application extends Component {
 
     return (
       <div>
-        <h1 style={ [styles.base] }>Application</h1>
+        <h1>Application</h1>
         { children }
       </div>
     );
   }
 }
 
-const styles = {
-  base: {
-    backgroundColor: "red",
-    cursor: "pointer",
-    ":hover": {
-      backgroundColor: "green"
-    }
-  }
-};
+

@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+CONCURRENT_CMD=node_modules/.bin/concurrent
+SUPERVISOR_CMD=node_modules/.bin/supervisor
+WEBPACK_CMD=node_modules/.bin/webpack
+
+NODE_ENV=development \
+  $CONCURRENT_CMD --kill-others \
+    "$SUPERVISOR_CMD -e js --harmony ./index.js" \
+    "$WEBPACK_CMD --watch --debug --config ./webpack/webpack.server.js" \
+    "node ./scripts/dev-server"

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+WEBPACK_CMD=node_modules/.bin/webpack
+
+NODE_ENV=production \
+  $WEBPACK_CMD --config ./webpack/webpack.client.js
+
+NODE_ENV=production \
+  $WEBPACK_CMD --config ./webpack/webpack.server.js

@@ -1,0 +1,18 @@
+#!/bin/env node
+
+var webpack = require("webpack");
+var WebpackDevServer = require("webpack-dev-server");
+var config = require("../webpack/webpack.client");
+
+var bundler = webpack(config);
+var server = new WebpackDevServer(bundler, {
+  quiet: true,
+  noInfo: true,
+  colors: true,
+  hot: true,
+  publicPath: config.output.publicPath
+});
+
+server.listen(8080, "localhost", function() {
+  console.log("WebpackDevServer listening!");
+});

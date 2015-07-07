@@ -1,0 +1,4 @@
+FOREVER_CMD=node_modules/.bin/forever
+
+NODE_ENV=production \
+  $FOREVER_CMD stop production_server

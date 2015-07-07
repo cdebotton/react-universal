@@ -1,0 +1,11 @@
+FOREVER_CMD=node_modules/.bin/forever
+
+NODE_ENV=production \
+  $FOREVER_CMD start \
+    -c "node --harmony" \
+    --uid "production_server" \
+    --append \
+    --colors \
+    --verbose \
+    --debug \
+    ./index.js

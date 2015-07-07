@@ -1,0 +1,9 @@
+.DS_Store
+thumbs.db
+._*
+npm-debug.log
+node_modules
+
+public/*
+server/tmp
+server/assets

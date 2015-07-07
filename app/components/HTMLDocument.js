@@ -16,6 +16,12 @@ export default class HTMLDocument extends Component {
       <html lang="en">
       <head>
         <title>{ DocumentTitle.rewind() }</title>
+        <link
+          href="http://fonts.googleapis.com/css?family=PT+Sans:400,700"
+          rel="stylesheet" />
+        <link
+          href="http://fonts.googleapis.com/css?family=Lato:300,400,700"
+          rel="stylesheet" />
         { css && css.map((href, key) => (
           <link key={ key } rel="stylesheet" href={ href } />
         )) }

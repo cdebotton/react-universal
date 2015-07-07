@@ -9,7 +9,7 @@ export default (getState) => {
     const [REQUEST, SUCCESS, FAILURE] = types;
 
     return promise
-      .then((result) => next({ ...rest, ...result, type; SUCCESS }))
+      .then((result) => next({ ...rest, ...result, type: SUCCESS }))
       .catch((error) => next({ ...rest, error, type: FAILURE }));
   };
 };

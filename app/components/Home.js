@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import radium from "radium";
+import { bindActionCreators } from "redux";
 import { Connector } from "redux/react";
 import { userActions } from "../actions";
 

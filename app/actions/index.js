@@ -1,1 +1,1 @@
-export userActions from "./userActions";
+export * as userActions from "./userActions";

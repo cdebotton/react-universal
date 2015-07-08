@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
 var fs = require("fs");
 
@@ -33,7 +34,7 @@ module.exports = {
       loader: "json"
     }, {
       test: /\.(css|styl)$/,
-      loader: "style!css|stylus"
+      loader: ExtractTextPlugin.extract("style", "css!stylus")
     }, {
       test: /\.js$/,
       exclude: /node_modules/,
@@ -43,9 +44,9 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.NormalModuleReplacementPlugin(/\.(css|styl)$/i, "node-noop")
+    new ExtractTextPlugin("../../public/build/stylesheets/[chunkhash].css")
   ],
   stylus: {
-    use: [require("nib")()]
+    use: [require("nib")(), require("rupture")()]
   }
 };

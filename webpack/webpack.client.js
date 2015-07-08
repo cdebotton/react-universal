@@ -79,6 +79,6 @@ module.exports = {
     }
   ],
   stylus: {
-    use: [require("nib")()]
+    use: [require("nib")(), require("rupture")()]
   }
 };

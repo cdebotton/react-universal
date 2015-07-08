@@ -33,6 +33,7 @@
     "react-document-title": "^1.0.2",
     "react-router": "1.0.0-beta3",
     "redux": "^0.12.0",
+    "rupture": "^0.6.1",
     "sequelize": "^3.3.2",
     "sequelize-cli": "^1.7.0"
   },

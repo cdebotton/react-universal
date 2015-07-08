@@ -1,0 +1,18 @@
+@import "nib"
+@import "rupture"
+
+:local(.container) {
+  column-count 4
+
+  +below(1280px) {
+    column-count 3
+  }
+
+  +below(960px) {
+    column-count 2
+  }
+
+  +below(720px) {
+    column-count 1
+  }
+}

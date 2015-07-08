@@ -98,6 +98,13 @@ const select = (state) => {
 };
 
 export default class HomeContainer {
+  static fetchData(params, dispatch) {
+    const action = userActions.addUser("admin@test.com");
+    dispatch(action);
+
+    return action.promise;
+  }
+
   render() {
     return (
       <Connector select={ select }>

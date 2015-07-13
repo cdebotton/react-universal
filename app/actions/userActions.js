@@ -1,10 +1,11 @@
+import {
+  CREATE_USER,
+  UPDATE_USER,
+  DESTROY_USER
+} from "../constants/ActionTypes";
+
 export function addUser(email) {
-  return {
-    types: ["ADD_USER_REQUEST", "ADD_USER_SUCCESS", "ADD_USER_FAILURE"],
-    promise: new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(`hello ${email}!`);
-      }, 5);
-    })
+  return (dispatch) => {
+    dispatch({ type: CREATE_USER, email });
   };
 }

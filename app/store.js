@@ -1,4 +1,4 @@
-import { composeStores, createDispatcher, createRedux } from "redux";
+import { createStore } from "redux";
 import thunkMiddleware from "redux/lib/middleware/thunk";
 import promiseMiddleware from "./utils/promiseMiddleware";
 import * as reducers from "./reducers";
@@ -9,11 +9,7 @@ if (process.env.BROWSER) {
   initialState = window.__payloadData__;
 }
 
-const store = composeStores(reducers, initialState);
-const dispatcher = createDispatcher(store, (getState) => [
+export default createStore(reducers, (getState) => [
   promiseMiddleware(getState),
   thunkMiddleware(getState)
 ]);
-const redux = createRedux(dispatcher);
-
-export default redux;

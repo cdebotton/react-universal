@@ -3,7 +3,7 @@ import {
   GraphQLString
 } from "graphql/lib/type";
 import { userType } from "../types";
-import { User } from "../models";
+import { User } from "../../models";
 
 export default {
   type: userType,

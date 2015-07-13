@@ -23,10 +23,10 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       description: "The password of the user"
     },
-    active: {
-      type: GraphQLBoolean,
-      description: "Whether or not the user is active"
-    },
+    // active: {
+    //   type: GraphQLBoolean,
+    //   description: "Whether or not the user is active"
+    // },
     lastLogin: {
       type: GraphQLString,
       description: "When the user last logged in"

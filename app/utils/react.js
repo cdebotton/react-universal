@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "redux/react";
 import { Router } from "react-router";
 import Location from "react-router/lib/Location";
-import redux from "../redux";
+import store from "../store";
 import HTMLDocument from "../components/HTMLDocument";
 
 export default function () {
@@ -11,7 +11,7 @@ export default function () {
     const routerProps = yield getRouterProps(routes, this.req.url);
     const state = yield getState(routerProps);
     const markup = React.renderToString(
-      <Provider redux={ redux }>
+      <Provider store={ store }>
         { () => <Router {...routerProps} /> }
       </Provider>
     );
@@ -59,7 +59,7 @@ const getRouterProps = (routes, url) => new Promise((resolve, reject) => {
 
 
 const getState = ({ params, components, branch }) => {
-  const { dispatch } = redux;
+  const { dispatch } = store;
 
   return new Promise(async (resolve, reject) => {
     const promises = components
@@ -69,7 +69,7 @@ const getState = ({ params, components, branch }) => {
     try {
       let data = await Promise.all(promises);
 
-      resolve(redux.getState());
+      resolve(store.getState());
     }
     catch (ex) {
       reject(ex);

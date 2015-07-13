@@ -1,5 +1,5 @@
 import React from "react";
-import { Provider } from "redux/react";
+import { Provider } from "react-redux";
 import { Router } from "react-router";
 import Location from "react-router/lib/Location";
 import store from "../store";

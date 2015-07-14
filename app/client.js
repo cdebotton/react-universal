@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { Router } from "react-router";
+import { Router, Route } from "react-router";
+import AsyncProps from "react-router/lib/experimental/AsyncProps";
 import BrowserHistory from "react-router/lib/BrowserHistory";
 import routes from "./routes";
 import store from "./store";
@@ -11,7 +12,7 @@ const mount = document.getElementById("app");
 React.render((
   <Provider store={ store }>
     { () => (
-      <Router history={ history } >
+      <Router history={ history }>
         { routes }
       </Router>
     ) }

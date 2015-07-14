@@ -1,10 +1,13 @@
 import React from "react";
 import { Route } from "react-router";
-import Application from "./components/Application";
-import Home from "./components/Home";
+import AsyncProps from "react-router/lib/experimental/AsyncProps";
+import * as Components from "./components";
 
 export default (
-  <Route component={ Application }>
-    <Route path="/" component={ Home } />
+  <Route component={ Components.Application }>
+    <Route path="/"
+           component={ Components.Home } />
+    <Route path="users"
+           component={ Components.Users } />
   </Route>
 );

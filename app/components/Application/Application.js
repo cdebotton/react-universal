@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import DocumentTitle from "react-document-title";
-import StyleSheet from "../../utils/globals.styl";
+import StyleSheet from "./Application.styl";
 
 export default class Application extends Component {
   static propTypes = {

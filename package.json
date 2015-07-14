@@ -28,7 +28,6 @@
     "pg": "^4.4.0",
     "pg-hstore": "^2.3.2",
     "pretty-error": "^1.1.2",
-    "radium": "^0.13.2",
     "react": "^0.13.3",
     "react-document-title": "^1.0.2",
     "react-redux": "^0.2.1",

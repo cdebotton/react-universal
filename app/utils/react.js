@@ -9,7 +9,6 @@ export default function () {
   return function* (next) {
     const routes = yield getRoutes();
     const routerProps = yield getRouterProps(routes, this.req.url);
-    const state = yield getState(routerProps);
     const markup = React.renderToString(
       <Provider store={ store }>
         { () => <Router {...routerProps} /> }
@@ -19,7 +18,7 @@ export default function () {
     const html = React.renderToStaticMarkup(
       <HTMLDocument
         markup={ markup }
-        payload={ JSON.stringify(state) }
+        payload={ JSON.stringify(store.getState()) }
         { ...stats } />
     );
 
@@ -58,18 +57,19 @@ const getRouterProps = (routes, url) => new Promise((resolve, reject) => {
 });
 
 
-const getState = ({ params, components, branch }) => {
+const getState = (routerProps) => {
+  const { params, components, branch } = routerProps;
   const { dispatch } = store;
 
   return new Promise(async (resolve, reject) => {
     const promises = components
-      .filter((component) => typeof component.fetchData === "function")
-      .map((component) => component.fetchData(params, dispatch));
+      .filter((component) => typeof component.loadProps === "function")
+      .map((component) => component.loadProps(routerProps, function() {}));
 
     try {
       let data = await Promise.all(promises);
 
-      resolve(store.getState());
+      resolve();
     }
     catch (ex) {
       reject(ex);

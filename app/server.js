@@ -44,10 +44,13 @@ ws.on("connection", () => {
     const [SUCCESS, FAILURE] = responseTypes;
 
     if (typeof query !== "undefined") {
-      graphql(schema, query).then(
-        (data) => {
+      graphql(schema, query).then((data) => {
+        if (data.errors) {
+          data.type = FAILURE;
+          socket.send(JSON.stringify(data));
+        }
+        else {
           data.type = SUCCESS;
-
           const json = JSON.stringify(data);
 
           if (data.broadcast && data.broadcast === true) {
@@ -56,12 +59,8 @@ ws.on("connection", () => {
           else {
             socket.send(json);
           }
-        },
-        (error) => {
-          error.type = FAILURE;
-          socket.send(JSON.stringify(error));
         }
-      );
+      });
     }
   });
 });

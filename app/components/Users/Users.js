@@ -3,10 +3,10 @@ import StyleSheet from "./Users.styl";
 
 export default class Users extends Component {
   static propTypes = {
-    users: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      email: PropTypes.string.isRequired
-    })).isRequired,
+    users: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      data: PropTypes.object.isRequired
+    }).isRequired,
     getUsers: PropTypes.func.isRequired
   }
 

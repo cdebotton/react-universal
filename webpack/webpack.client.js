@@ -27,6 +27,11 @@ module.exports = {
     publicPath: publicPath
   },
   module: {
+    preLoaders: [{
+      test: /\.json$/,
+      exclude: /node_modules/,
+      loader: "eslint"
+    }],
     loaders: [{
       test: /\.json$/,
       loader: "json"
@@ -80,5 +85,8 @@ module.exports = {
   ],
   stylus: {
     use: [require("nib")(), require("rupture")()]
+  },
+  eslint: {
+    failOnError: true
   }
 };

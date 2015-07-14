@@ -6,7 +6,6 @@ var config = require("../webpack/webpack.client");
 
 var bundler = webpack(config);
 var server = new WebpackDevServer(bundler, {
-  quiet: true,
   noInfo: true,
   colors: true,
   hot: true,

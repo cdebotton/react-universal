@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import promise from "./utils/promiseMiddleware";
+import socket from "./utils/socketMiddleware";
 import * as reducers from "./reducers";
 
 let initialState;
@@ -10,7 +11,7 @@ if (process.env.BROWSER) {
 }
 
 const reducer = combineReducers(reducers);
-const finalCreateStore = applyMiddleware(thunk, promise)(createStore);
+const finalCreateStore = applyMiddleware(socket, thunk)(createStore);
 const store = finalCreateStore(reducer);
 
 export default store;

@@ -1,27 +1,27 @@
-import getSocket from "./getSocket";
+import SocketAction from "./SocketAction";
+import WebSocket from "ws";
 
-export default async (getState) => {
-  const socket = await getSocket();
+const ws = new WebSocket("ws://localhost:3000");
+
+export default ({ dispatch, getState }) => {
+  ws.onmessage = (message) => {
+    const json = JSON.parse(message.data);
+    const { type, data } = json;
+
+    dispatch({ type, ...data });
+  };
 
   return (next) => (action) => {
-    const { emit, broadcast, ...rest } = action;
+    if (action instanceof SocketAction) {
+      const { type, ...rest } = action;
+      const [SUCCESS, FAILURE] = rest.responseTypes;
 
-    next(rest);
+      dispatch({ type });
 
-    if (emit) {
-      socket.send(
-        typeof emit === "function" ?
-        emit(getState) :
-        emit
-      );
+      ws.send(JSON.stringify(action));
     }
-
-    if (broadcast) {
-      socket.broadcast(
-        typeof emit === "function" ?
-          broadcast(getState) :
-          emit
-      );
+    else {
+      next(action);
     }
   };
 };

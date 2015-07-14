@@ -1,20 +1,20 @@
 import {
-  CREATE_USER,
-  READ_USERS,
-  READ_USER,
-  UPDATE_USER,
-  DESTROY_USER
+  GET_USERS_REQUEST,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR
 } from "../constants/ActionTypes";
 
 const initialState = [];
 
 export default (state=initialState, action) => {
   switch (action.type) {
-    case CREATE_USER:
-      const { email } = action;
-      return [{ email }, ...state];
-    case UPDATE_USER:
-    case DESTROY_USER:
+    case GET_USERS_REQUEST:
+      console.log("REQUEST");
+      return state;
+    case GET_USERS_SUCCESS:
+      console.log(action);
+      console.log("SUCCESS");
+      return state;
     default:
       return state;
   }

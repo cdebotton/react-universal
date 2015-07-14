@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "cdebotton",
+    "username": "debotton",
     "password": null,
     "database": "cdb_development",
     "host": "127.0.0.1",

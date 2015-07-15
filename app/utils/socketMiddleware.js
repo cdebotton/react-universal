@@ -27,7 +27,7 @@ ws.onmessage = (message) => {
       callback(message);
     });
   }
-}
+};
 
 export default ({ dispatch, getState }) => {
   return (next) => (action) => {

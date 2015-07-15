@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import DocumentTitle from "react-document-title";
-import StyleSheet from "./Home.styl"
+import StyleSheet from "./Home.styl";
 
 export default class Home extends Component {
   static propTypes = {
@@ -14,37 +14,37 @@ export default class Home extends Component {
       <DocumentTitle title="Home &mdash; React Universal">
         <div className={ StyleSheet.container }>
           <h2>Home</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris,
           eleifend maximus nibh, eu semper tortor mollis ut. Etiam fringilla
-          ullamcorper urna, sit amet blandit ex. Aenean hendrerit sagittis ipsum,
+          ullamcorper urna, sit amet blandit ex. Aenean hendrerit sagittis ip,
           eget venenatis risus eleifend quis. Vivamus auctor, arcu ut dapibus
-          volutpat, ligula est dapibus nisl, eget dignissim ante augue at odio.
+          volutpat, ligula est dapibus nisl, eget dignissim ante augue at odi,
           Integer blandit enim at enim hendrerit porttitor ac quis massa.
           Sed pharetra egestas consequat.</p>
           <p>Integer sed purus ut enim scelerisque porttitor. Etiam sodales
           tellus quis lorem consectetur, ut mollis risus malesuada. Nulla
-          scelerisque porta orci, in varius erat blandit et. Morbi consectetur
+          scelerisque porta orci, in varius erat blandit et. Morbi consectetu,
           lectus quis sem cursus, eu gravida metus condimentum. Morbi viverra
           sed risus in pretium. In gravida dui ut orci sodales sollicitudin.
-          Morbi est tortor, vulputate vitae iaculis sit amet, mollis vitae tortor.
-          Duis ut metus ut ex elementum rutrum. Aenean dolor elit, luctus vitae
+          Morbi est tortor, vulputate vitae iaculis sit amet, mollis vitae to,
+          Duis ut metus ut ex elementum rutrum. Aenean dolor elit, luctus vit,
           ante eu, cursus pretium justo. Pellentesque hendrerit consequat
           sodales.</p>
           <p>Donec feugiat diam id pellentesque consectetur. Vestibulum
           ullamcorper diam turpis, sit amet pulvinar libero tincidunt ut.
-          Etiam vitae erat ligula. Maecenas risus risus, tempus vel hendrerit
+          Etiam vitae erat ligula. Maecenas risus risus, tempus vel hendrerit,
           sed, porta nec augue. Vestibulum pellentesque convallis metus, ac
           ornare massa aliquet sed. Sed eget dolor consectetur, fermentum leo
           vel, efficitur arcu. Phasellus risus lacus, ullamcorper quis
-          scelerisque sit amet, interdum ac augue. Proin maximus vitae quam non
+          scelerisque sit amet, interdum ac augue. Proin maximus vitae quam n,
           tincidunt. Fusce consectetur id dui id porttitor. Quisque venenatis,
           nisi ac venenatis sagittis, sem diam vestibulum ante, nec sagittis
-          magna lacus in libero. Cras ac est purus. Morbi fermentum consectetur
+          magna lacus in libero. Cras ac est purus. Morbi fermentum consectet,
           mi. Aenean non rhoncus massa. Pellentesque scelerisque finibus est
-          non ullamcorper. Sed tempus tortor sit amet dictum venenatis. Praesent
+          non ullamcorper. Sed tempus tortor sit amet dictum venenatis. Praes,
           ac magna mattis, gravida felis eu, auctor lorem.</p>
-          <p>Aenean mattis, nisi vel lobortis maximus, velit tellus semper metus,
-          ac tincidunt urna dolor nec est. In faucibus, sapien vel cursus viverra,
+          <p>Aenean mattis, nisi vel lobortis maximus, velit tellus semper me,
+          ac tincidunt urna dolor nec est. In faucibus, sapien vel cursus viv,
           mauris dolor pellentesque ipsum, ac blandit magna ante ac felis.
           Maecenas venenatis ipsum at sollicitudin vestibulum. Cras imperdiet
           tellus finibus arcu ornare molestie. Nullam efficitur imperdiet
@@ -52,26 +52,26 @@ export default class Home extends Component {
           <p>Duis tempus libero quis mauris lacinia laoreet. Duis non semper
           lorem, sed mollis enim. Sed vel posuere nisl. Maecenas sit amet arcu
           augue. Mauris pretium elit dolor, ac porta justo volutpat eget. In
-          euismod mattis nibh, eget commodo orci pellentesque non. Integer laoreet
+          euismod mattis nibh, eget commodo orci pellentesque non. Integer laor,
           condimentum est eget facilisis. Fusce quis ipsum at magna ultrices
           scelerisque.</p>
           <p>Donec non elit vitae lacus fermentum facilisis eget mattis justo.
           Phasellus suscipit velit sagittis, interdum libero ut, faucibus nisi.
-          Maecenas lobortis, sapien eget sagittis vehicula, sem turpis porta nibh,
+          Maecenas lobortis, sapien eget sagittis vehicula, sem turpis porta ni,
           et tincidunt metus nibh a augue. Aliquam molestie porta vestibulum.
           Curabitur laoreet ipsum velit, in porta orci vestibulum vitae.
           Nulla rhoncus ex vel enim varius convallis. Morbi cursus scelerisque
           augue, id malesuada arcu accumsan in. Curabitur sit amet convallis
           urna, in venenatis est.</p>
           <p>Maecenas et condimentum ex. Pellentesque vel diam ac tortor mollis
-          venenatis. In ante lacus, malesuada at purus sit amet, tincidunt tempor
+          venenatis. In ante lacus, malesuada at purus sit amet, tincidunt temp,
           elit. Phasellus eu feugiat nulla, sed consequat lacus. Pellentesque
           interdum sapien nec blandit tempor. Integer pretium suscipit metus,
           sit amet dapibus quam dapibus eget. Pellentesque eu aliquam diam.
           Suspendisse potenti. Quisque in diam mi. Donec lacus sem, luctus nec
           purus eget, pellentesque accumsan urna. Pellentesque molestie dolor
-          massa, quis ultricies eros commodo euismod. Ut auctor tempor eleifend.
-          Donec ut mattis lectus. In non est mollis, vestibulum arcu nec, aliquam
+          massa, quis ultricies eros commodo euismod. Ut auctor tempor eleifend,
+          Donec ut mattis lectus. In non est mollis, vestibulum arcu nec, aliqu,
           diam. Vivamus nulla nisi, rhoncus ut magna vitae, ultrices
           auctor eros.</p>
         </div>

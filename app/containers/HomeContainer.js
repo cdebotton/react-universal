@@ -8,6 +8,7 @@ import {counterActions} from "../actions";
 export default class HomeContainer extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    counter: PropTypes.number.isRequired,
     children: PropTypes.any
   }
 

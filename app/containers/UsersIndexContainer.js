@@ -8,13 +8,14 @@ import UsersIndex from "../../components/UsersIndex";
 export default class UsersIndexContainer extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    users: PropTypes.arrayOf(PropTypes.object).isRequired,
     children: PropTypes.any
   }
 
   render() {
     return (
       <UsersIndex users={users}
-                           {...bindActionCreators(userActions, dispatch)} />
+                  {...bindActionCreators(userActions, dispatch)} />
     );
   }
 }

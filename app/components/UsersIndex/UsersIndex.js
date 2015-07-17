@@ -22,8 +22,25 @@ export default class UsersIndex extends Component {
     this.context.router.transitionTo("/users/create");
   }
 
+  getUsers() {
+    const { data: users } = this.props.users;
+
+    const userItems = Object.keys(users).map((id) => {
+      const user = users[id];
+
+      return (
+        <li>{user.id} - {user.email}</li>
+      );
+    });
+
+    return userItems.length > 0 ? (
+      <ul>{userItems}</ul>
+    ) : (
+      <p>No users...</p>
+    );
+  }
+
   render() {
-    console.log(this.props.users);
     return (
       <div className={StyleSheet.container}>
         <h3>UsersIndex</h3>
@@ -33,6 +50,7 @@ export default class UsersIndex extends Component {
                  ref={(c) => this._newUserEmail = c} />
           <button type="submit">Create user</button>
         </form>
+        {this.getUsers()}
       </div>
     );
   }

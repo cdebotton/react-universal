@@ -7,12 +7,6 @@ export default {
   resolve: async (root, params, source, fieldASTs) => {
     const users = await User.findAll();
 
-    return [{
-      id: 1,
-      email: "cdebotton@gmail.com",
-      firstName: "Christian",
-      lastName: "de Botton"
-    }];
-    // return users.map((user) => user.toJSON());
+    return users.map((user) => user.toJSON());
   }
 };

@@ -40,11 +40,11 @@ ws.on("connection", () => {
 
   socket.on("message", (msg) => {
     const json = JSON.parse(msg);
-    const { responseTypes, query } = json;
+    const { responseTypes, query, params } = json;
     const [SUCCESS, FAILURE] = responseTypes;
 
     if (typeof query !== "undefined") {
-      graphql(schema, query).then((data) => {
+      graphql(schema, query, "", params).then((data) => {
         if (data.errors) {
           data.type = FAILURE;
           socket.send(JSON.stringify(data));

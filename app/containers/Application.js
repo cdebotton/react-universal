@@ -12,6 +12,8 @@ export default class Application extends Component {
     return store.getState();
   }
 
+  state = { mounted: false }
+
   getDebug() {
     return (
       <DebugPanel top right bottom>
@@ -19,6 +21,10 @@ export default class Application extends Component {
                   monitor={LogMonitor} />
       </DebugPanel>
     );
+  }
+
+  componentDidMount() {
+    this.setState({ mounted: true });
   }
 
   render() {
@@ -29,7 +35,7 @@ export default class Application extends Component {
         <Provider store={ store }>
           { this.props.getRouter }
         </Provider>
-        { ENV === "development" && this.getDebug() }
+        { ENV === "development" && this.state.mounted && this.getDebug() }
       </span>
     );
   }

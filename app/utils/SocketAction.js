@@ -1,19 +1,17 @@
 export default class SocketAction {
   constructor(type, payload = {}) {
-    Object.defineProperty(this, "type", {
-      value: type,
-      writable: false,
-      enumerable: true
-    });
+    const keys = Object.keys(payload);
 
-    Object.keys(payload).forEach((key) => {
-      Object.defineProperty(this, key, {
-        value: payload[key],
-        writable: false,
-        enumerable: true
-      });
-    });
+    this.assignReadOnlyProperty("type", type);
+    keys.forEach((key) => this.assignReadOnlyProperty(key, payload[key]));
 
     Object.freeze(this);
+  }
+
+  assignReadOnlyProperty(key, value) {
+    const writable = false;
+    const enumerable = true;
+
+    Object.defineProperty(this, key, {value, writable, enumerable});
   }
 }

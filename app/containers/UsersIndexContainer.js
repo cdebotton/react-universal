@@ -12,6 +12,16 @@ export default class UsersIndexContainer extends Component {
     children: PropTypes.any
   }
 
+  static contextTypes = {
+    store: PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    const { dispatch } = this.context.store;
+
+    dispatch(userActions.getUsers());
+  }
+
   render() {
     const {users, dispatch} = this.props;
     const actions = bindActionCreators(userActions, dispatch);

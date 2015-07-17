@@ -1,8 +1,10 @@
 import SocketAction from "./SocketAction";
 import WebSocket from "ws";
 
+const TIMEOUT = 10000;
 const ws = new WebSocket("ws://localhost:3000");
 let handlers = {};
+let promises = [];
 
 ws.on = (type, handler) => {
   handlers[type] = handlers[type] || [];
@@ -23,11 +25,16 @@ ws.once = (type, handler) => {
 ws.onmessage = (message) => {
   const { type, data, ...json } = JSON.parse(message.data);
   if (handlers[type]) {
-    handlers[type].forEach((callback) => {
-      callback(message);
-    });
+    handlers[type].forEach((callback) => callback(message));
   }
 };
+
+const socketReady = new Promise((resolve, reject) => {
+  setTimeout(reject, TIMEOUT);
+  ws.onopen = () => resolve(ws);
+});
+
+export const getRequests = () => Promise.all(promises);
 
 export default ({ dispatch, getState }) => {
   return (next) => (action) => {
@@ -36,22 +43,27 @@ export default ({ dispatch, getState }) => {
       const [SUCCESS, FAILURE] = responseTypes;
 
       dispatch({ type, ...rest });
-
-      return new Promise((resolve, reject) => {
+      const promise = new Promise((resolve, reject) => {
         ws.once(SUCCESS, (message) => {
           const data = JSON.parse(message.data);
           dispatch(data);
+          promises = promises.filter((p) => p !== promise);
           resolve(data);
         });
 
         ws.once(FAILURE, (message) => {
           const data = JSON.parse(message.data);
           dispatch(data);
+          promises = promises.filter((p) => p !== promise);
           reject(data);
         });
 
-        ws.send(JSON.stringify(action));
+        socketReady.then(() => ws.send(JSON.stringify(action)));
       });
+
+      promises.push(promise);
+
+      return promise;
     }
     else {
       next(action);

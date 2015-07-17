@@ -1,25 +1,24 @@
 import React from "react";
-import { Provider } from "react-redux";
 import { Router } from "react-router";
 import Location from "react-router/lib/Location";
-import store from "../store";
-import HTMLDocument from "../components/HTMLDocument";
+import Application from "../containers/Application";
+import HTMLDocument from "../views/HTMLDocument";
 
 export default function () {
   return function* (next) {
     const routes = yield getRoutes();
     const routerProps = yield getRouterProps(routes, this.req.url);
     const markup = React.renderToString(
-      <Provider store={ store }>
-        { () => <Router {...routerProps} /> }
-      </Provider>
+      <Application getRouter={() => (
+        <Router {...routerProps} />
+      )} />
     );
     const stats = require("../assets/webpack-stats.json");
+    const store = Application.getStoreState();
     const html = React.renderToStaticMarkup(
-      <HTMLDocument
-        markup={ markup }
-        payload={ JSON.stringify(store.getState()) }
-        { ...stats } />
+      <HTMLDocument markup={ markup }
+                    store={ store }
+                    { ...stats } />
     );
 
     this.body = `<!doctype html>${html}`;
@@ -55,24 +54,3 @@ const getRouterProps = (routes, url) => new Promise((resolve, reject) => {
     reject(ex);
   }
 });
-
-
-const getState = (routerProps) => {
-  const { params, components, branch } = routerProps;
-  const { dispatch } = store;
-
-  return new Promise(async (resolve, reject) => {
-    const promises = components
-      .filter((component) => typeof component.loadProps === "function")
-      .map((component) => component.loadProps(routerProps, function() {}));
-
-    try {
-      let data = await Promise.all(promises);
-
-      resolve();
-    }
-    catch (ex) {
-      reject(ex);
-    }
-  });
-};

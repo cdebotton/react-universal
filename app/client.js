@@ -1,19 +1,15 @@
 import React from "react";
-import { Provider } from "react-redux";
 import { Router } from "react-router";
 import BrowserHistory from "react-router/lib/BrowserHistory";
 import routes from "./routes";
-import store from "./store";
+import Application from "./containers/Application";
 
 const history = new BrowserHistory();
-const mount = document.getElementById("app");
+const mount = document.getElementById("application");
 
 React.render((
-  <Provider store={ store }>
-    { () => (
-      <Router history={ history }>
-        { routes }
-      </Router>
-    ) }
-  </Provider>
+  <Application getRouter={ () => (
+    <Router history={history}
+            children={routes} />
+  ) } />
 ), mount);

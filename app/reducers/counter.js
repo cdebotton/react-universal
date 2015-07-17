@@ -1,4 +1,4 @@
-import { UP, DOWN } from "../constants/ActionTypes";
+import { UP, DOWN } from "../constants/actionTypes";
 
 const initialState = 0;
 

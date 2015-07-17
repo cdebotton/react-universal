@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { devTools } from "redux-devtools";
 import thunk from "redux-thunk";
-import promise from "./utils/promiseMiddleware";
-import socket from "./utils/socketMiddleware";
+import promise from "./utils/redux-promise";
+import socket from "./utils/redux-socket";
 import * as reducers from "./reducers";
 
 const DEV = process.env.NODE_ENV === "development";

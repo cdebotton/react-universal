@@ -8,9 +8,9 @@ import proxy from "koa-proxy";
 import { Server as WebSocketServer } from "ws";
 import { graphql } from "graphql";
 import schema from "./graph/schema";
-import graph from "./utils/graph"
-import errors from "./utils/errors";
-import react from "./utils/react";
+import graph from "./middleware/graph"
+import errors from "./middleware/errors";
+import react from "./middleware/react";
 
 const PORT = process.env.PORT || 3000;
 const ENV = process.env.NODE_ENV || "development";

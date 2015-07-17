@@ -75,7 +75,7 @@ module.exports = {
           memo[ext] = memo[ext] || [];
           memo[ext].push("/build/" + chunk);
           return memo;
-        }, {});
+        }, {js:[],css:[]});
 
         console.log("webpack-stats.json updated", assets);
 

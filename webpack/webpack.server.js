@@ -31,9 +31,11 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.json$/,
+      exclude: /node_modules/,
       loader: "json"
     }, {
       test: /\.(css|styl)$/,
+      exclude: /node_modules/,
       loader: ExtractTextPlugin.extract("style", "css!stylus")
     }, {
       test: /\.js$/,

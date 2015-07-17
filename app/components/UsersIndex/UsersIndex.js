@@ -23,6 +23,7 @@ export default class UsersIndex extends Component {
   }
 
   render() {
+    console.log(this.props.users);
     return (
       <div className={StyleSheet.container}>
         <h3>UsersIndex</h3>

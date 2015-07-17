@@ -9,13 +9,13 @@ const DEV = process.env.NODE_ENV === "development";
 let initialState;
 
 if (process.env.BROWSER) {
-  initialState = window.__payloadData__;
+  initialState = JSON.parse(window.__initialPayload__.innerHTML);
 }
 
 const reducer = combineReducers(reducers);
 const middlewares = applyMiddleware(socket, thunk);
 const createCompStore = DEV ? compose(devTools(), createStore) : createStore;
 const finalCreateStore = middlewares(createCompStore);
-const store = finalCreateStore(reducer);
+const store = finalCreateStore(reducer, initialState);
 
 export default store;

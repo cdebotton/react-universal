@@ -1,7 +1,10 @@
+import * as Transports from "../constants/Transports";
+
 export default class SocketAction {
   constructor(type, payload = {}) {
     const keys = Object.keys(payload);
 
+    this.transport = Transports.WEB_SOCKET;
     this.assignReadOnlyProperty("type", type);
     keys.forEach((key) => this.assignReadOnlyProperty(key, payload[key]));
 
@@ -14,4 +17,8 @@ export default class SocketAction {
 
     Object.defineProperty(this, key, {value, writable, enumerable});
   }
+}
+
+export class ServerSocketAction extends SocketAction {
+  static isServer = true
 }

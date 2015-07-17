@@ -30,9 +30,13 @@ export default function users(state=initialState, action) {
       ...state,
       isLoading: false,
       errors: [],
-      ...action.data.users.reduce((memo, user) => {
-        memo[user.id] = user;
-      }, {})
+      data: {
+        ...state.data,
+        ...action.data.users.reduce((memo, user) => {
+          memo[user.id] = user;
+          return memo;
+        }, {})
+      }
     };
   case actionTypes.GET_USERS_FAILURE:
     return {

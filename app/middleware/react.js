@@ -1,8 +1,9 @@
 import React from "react";
-import { Router } from "react-router";
+import {Router} from "react-router";
 import Location from "react-router/lib/Location";
 import Application from "../containers/Application";
 import HTMLDocument from "../views/HTMLDocument";
+import {getRequests} from "../utils/redux-socket";
 
 export default function () {
   return function* (next) {
@@ -13,6 +14,7 @@ export default function () {
         <Router {...routerProps} />
       )} />
     );
+    const requests = yield getRequests();
     const stats = require("../assets/webpack-stats.json");
     const store = Application.getStoreState();
     const html = React.renderToStaticMarkup(

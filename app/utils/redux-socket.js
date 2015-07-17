@@ -1,5 +1,6 @@
 import SocketAction from "./SocketAction";
 import WebSocket from "ws";
+import * as Transports from "../constants/Transports";
 
 const TIMEOUT = 10000;
 const ws = new WebSocket("ws://localhost:3000");
@@ -34,36 +35,76 @@ const socketReady = new Promise((resolve, reject) => {
   ws.onopen = () => resolve(ws);
 });
 
-export const getRequests = () => Promise.all(promises);
+export const getRequests = () => {
+  return Promise.all(promises);
+};
+
+export const addRequest = (promise) => {
+  promise.then(() => {
+    promises = promises.filter((p) => p !== promise);
+  });
+
+  promises.push(promise);
+
+  return promise;
+};
 
 export default ({ dispatch, getState }) => {
   return (next) => (action) => {
-    if (action instanceof SocketAction) {
+    const isSocket = action.transport &&
+                     action.transport === Transports.WEB_SOCKET;
+    const isBrowser = process.env.BROWSER;
+
+    if (isSocket && isBrowser) {
       const { type, responseTypes, ...rest } = action;
       const [SUCCESS, FAILURE] = responseTypes;
 
-      dispatch({ type, ...rest });
+      next({ type, ...rest });
+
       const promise = new Promise((resolve, reject) => {
         ws.once(SUCCESS, (message) => {
           const data = JSON.parse(message.data);
-          dispatch(data);
+          next(data);
           promises = promises.filter((p) => p !== promise);
           resolve(data);
         });
 
         ws.once(FAILURE, (message) => {
           const data = JSON.parse(message.data);
-          dispatch(data);
+          next(data);
           promises = promises.filter((p) => p !== promise);
           reject(data);
         });
 
-        socketReady.then(() => ws.send(JSON.stringify(action)));
+        const json = JSON.stringify(action);
+        socketReady.then(() => ws.send(json));
       });
 
       promises.push(promise);
 
       return promise;
+    }
+    else if (isSocket) {
+      if (!process.env.BROWSER) {
+        const { responseTypes, query, params } = action;
+        const [SUCCESS, FAILURE] = responseTypes;
+        const {queryGraph} = require("./ws-server");
+
+        addRequest(queryGraph(query, params)).then((data) => {
+          if (data.errors) {
+            dispatch({
+              type: FAILURE,
+              errors: data.errors
+            });
+          }
+          else {
+            dispatch({
+              type: SUCCESS,
+              ...data
+            });
+          }
+        });
+      }
     }
     else {
       next(action);

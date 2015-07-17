@@ -1,26 +1,31 @@
-'use strict';
+"use strict";
 
-var fs        = require('fs');
-var path      = require('path');
-var Sequelize = require('sequelize');
-var basename  = path.basename(module.filename);
-var env       = process.env.NODE_ENV || 'development';
-var config    = require(__dirname + '/../config/db.json')[env];
-var sequelize = new Sequelize(config.database, config.username, config.password, config);
-var db        = {};
+let fs        = require("fs");
+let path      = require("path");
+let Sequelize = require("sequelize");
+let basename  = path.basename(module.filename);
+let env       = process.env.NODE_ENV || "development";
+let config    = require(path.join(__dirname, "/../config/db.json"))[env];
+let sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  config
+);
+let db        = {};
 
 fs
   .readdirSync(__dirname)
   .filter(function(file) {
-    return (file.indexOf('.') !== 0) && (file !== basename);
+    return (file.indexOf(".") !== 0) && (file !== basename);
   })
   .forEach(function(file) {
-    var model = sequelize['import'](path.join(__dirname, file));
+    let model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 
 Object.keys(db).forEach(function(modelName) {
-  if ('associate' in db[modelName]) {
+  if ("associate" in db[modelName]) {
     db[modelName].associate(db);
   }
 });

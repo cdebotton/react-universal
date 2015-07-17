@@ -2,6 +2,7 @@ export const UP = "UP";
 export const DOWN = "DOWN";
 
 export const INITIALIZE_USER = "INITIALIZE_USER";
+export const CANCEL_INITIALIZE_USER = "CANCEL_INITIALIZE_USER";
 
 export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
 export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";

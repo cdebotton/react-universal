@@ -2,23 +2,25 @@ import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {userActions} from "../actions";
-import UsersIndex from "../components/UsersIndex";
+import UsersCreate from "../components/UsersCreate";
 
-@connect(({users}) => ({users}))
-export default class UsersIndexContainer extends Component {
+@connect((state) => ({
+  newUserEmail: state.users.newUserEmail
+}))
+export default class UsersCreateContainer extends Component {
   static propTypes = {
+    newUserEmail: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
-    users: PropTypes.object.isRequired,
     children: PropTypes.any
   }
 
   render() {
-    const {users, dispatch} = this.props;
+    const {newUserEmail, dispatch} = this.props;
     const actions = bindActionCreators(userActions, dispatch);
 
     return (
-      <UsersIndex users={users}
-                  {...actions} />
+      <UsersCreate newUserEmail={newUserEmail}
+                   {...actions} />
     );
   }
 }

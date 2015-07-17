@@ -12,15 +12,17 @@ export default class Home extends Component {
     return (
       <div className={ StyleSheet.container }>
         <h2>Counter</h2>
-        <p><strong>Value:</strong> {this.props.counter}</p>
-        <button type="button"
-                onClick={::this.props.up}>
-          Up
-        </button>
-        <button type="button"
-                onClick={::this.props.down}>
-          Down
-        </button>
+        <div>
+          <p><strong>Value:</strong> {this.props.counter}</p>
+          <button type="button"
+                  onClick={::this.props.up}>
+            Up
+          </button>
+          <button type="button"
+                  onClick={::this.props.down}>
+            Down
+          </button>
+        </div>
       </div>
     );
   }

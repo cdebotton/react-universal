@@ -13,9 +13,12 @@ export default class HomeContainer extends Component {
   }
 
   render() {
+    const {counter, dispatch} = this.props;
+    const actions = bindActionCreators(counterActions, dispatch);
+
     return (
-      <Home {...bindActionCreators(counterActions, this.props.dispatch)}
-            counter={this.props.counter} />
+      <Home counter={counter}
+            {...actions} />
     );
   }
 }

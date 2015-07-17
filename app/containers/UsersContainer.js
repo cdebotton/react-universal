@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import Users from "../../components/Users";
+import Users from "../components/Users";
 import UsersIndexContainer from "./UsersIndexContainer";
 
 export default class UsersContainer extends Component {

@@ -12,6 +12,11 @@ export default function users(state=initialState, action) {
       ...initialState,
       newUserEmail: action.email
     };
+  case actionTypes.CANCEL_INITIALIZE_USER:
+    return {
+      ...initialState,
+      newUserEmail: ""
+    };
   default:
     return state;
   }

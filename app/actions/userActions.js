@@ -1,11 +1,19 @@
 import * as actionTypes from "../constants/actionTypes";
 
 export function initializeUser(email) {
-  const { INITIALIZE_USER } = actionTypes;
+  const {INITIALIZE_USER} = actionTypes;
 
   return {
     type: INITIALIZE_USER,
     email
+  };
+}
+
+export function cancelInitializeUser() {
+  const {CANCEL_INITIALIZE_USER} = actionTypes;
+
+  return {
+    type: CANCEL_INITIALIZE_USER
   };
 }
 

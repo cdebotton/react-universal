@@ -1,32 +1,22 @@
 import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from "redux";
 import { Connector } from "react-redux";
-import { userActions } from "../../actions";
 import Home from "./Home";
+import { counterActions } from "../../actions";
 
 const select = (state) => {
   return {
-    users: state.users
+    counter: state.counter
   };
 };
 
 export default class HomeContainer {
-  static fetchData(params, dispatch) {
-    const action = userActions.addUser("admin@test.com");
-    dispatch(action);
-
-    return action.promise;
-  }
-
   render() {
     return (
       <Connector select={ select }>
-        { ({ users, dispatch }) => (
-          <Home
-            actions={ Object.assign({},
-              bindActionCreators(userActions, dispatch)
-            ) }
-            users={ users } />
+        { ({ counter, dispatch }) => (
+          <Home counter={ counter }
+                { ...bindActionCreators(counterActions, dispatch) } />
         ) }
       </Connector>
     );

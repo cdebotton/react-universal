@@ -2,7 +2,8 @@
 @import "rupture"
 
 :local(.container) {
-  column-count 4
+  display flex
+  flex-flow row wrap
 
   +below(1280px) {
     column-count 3
@@ -14,5 +15,9 @@
 
   +below(720px) {
     column-count 1
+  }
+
+  h2 {
+    width 100%
   }
 }

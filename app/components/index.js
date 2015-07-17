@@ -1,3 +1,3 @@
 export Application from "./Application";
 export Home from "./Home";
-export Users from "./Users";
+export HTMLDocument from "./HTMLDocument";

@@ -7,6 +7,7 @@ import store from "./store";
 
 const history = new BrowserHistory();
 const mount = document.getElementById("app");
+
 React.render((
   <Provider store={ store }>
     { () => (

@@ -1,7 +1,2 @@
-export const GET_USERS_REQUEST = "GET_USERS_REQUEST";
-export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
-export const GET_USERS_FAILURE = "GET_USERS_FAILURE";
-
-export const CREATE_USER = "CREATE_USER";
-export const UPDATE_USER = "UPDATE_USER";
-export const DESTROY_USER = "DESTROY_USER";
+export const UP = "UP";
+export const DOWN = "DOWN";

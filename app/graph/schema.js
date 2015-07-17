@@ -12,7 +12,7 @@ export default new GraphQLSchema({
     fields: queries
   }),
   mutations: new GraphQLObjectType({
-    name: "Mutation",
+    name: "RootMutationType",
     fields: mutations
   })
 });

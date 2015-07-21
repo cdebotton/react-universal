@@ -1,0 +1,3 @@
+MOCHA_CMD=node_modules/.bin/mocha
+
+$MOCHA_CMD --colors --growl --debug --compilers js:babel/register tests/**/*.js

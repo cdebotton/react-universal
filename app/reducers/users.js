@@ -41,7 +41,7 @@ export default function users(state=initialState, action) {
   case actionTypes.GET_USERS_FAILURE:
     return {
       ...state,
-      errors: [action.errors],
+      errors: action.errors.map((err) => err.message),
       isLoading: false
     };
   default:

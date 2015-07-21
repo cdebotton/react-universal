@@ -5,6 +5,7 @@ import bodyparser from "koa-bodyparser";
 import path from "path";
 import http from "http";
 import proxy from "koa-proxy";
+import ws from "ws";
 import errors from "./middleware/errors";
 import react from "./middleware/react";
 import ws from "./utils/ws-server";
@@ -27,7 +28,6 @@ app.use(serveStatic(path.join(__dirname, "../public")));
 app.use(react());
 
 const server = http.createServer(app.callback());
-const socket = ws(server);
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

@@ -6,8 +6,7 @@ export default class UsersIndex extends Component {
     users: PropTypes.shape({
       newUserEmail: PropTypes.string.isRequired,
       data: PropTypes.object.isRequired
-    }).isRequired,
-    initializeUser: PropTypes.func.isRequired
+    }).isRequired
   }
 
   static contextTypes = {
@@ -16,6 +15,7 @@ export default class UsersIndex extends Component {
 
   handleSubmit(event) {
     const input = React.findDOMNode(this._newUserEmail);
+
     event.preventDefault();
     this.props.initializeUser(input.value);
     input.value = "";
@@ -40,6 +40,16 @@ export default class UsersIndex extends Component {
     );
   }
 
+  printErrors() {
+    const errors = this.props.users.errors.map((err, key) => (
+      <li key={key}>{err}</li>
+    ));
+
+    return (
+      <ul>{errors}</ul>
+    );
+  }
+
   render() {
     return (
       <div className={StyleSheet.container}>
@@ -50,7 +60,7 @@ export default class UsersIndex extends Component {
                  ref={(c) => this._newUserEmail = c} />
           <button type="submit">Create user</button>
         </form>
-        {this.getUsers()}
+        {this.props.users.errors.length ? this.getUsers() : this.printErrors()}
       </div>
     );
   }

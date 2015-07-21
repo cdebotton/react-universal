@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {userActions} from "../actions";
 import UsersIndex from "../components/UsersIndex";
 
 @connect(({users}) => ({users}))
@@ -16,15 +15,20 @@ export default class UsersIndexContainer extends Component {
     store: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    const { dispatch } = this.context.store;
-
-    dispatch(userActions.getUsers());
+  static queries = {
+    users() {
+      return `{
+        users {
+          id,
+          email
+        }
+      }`;
+    }
   }
 
   render() {
     const {users, dispatch} = this.props;
-    const actions = bindActionCreators(userActions, dispatch);
+    const actions = {};
 
     return (
       <UsersIndex users={users}

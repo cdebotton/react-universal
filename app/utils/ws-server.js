@@ -6,7 +6,9 @@ export default (params) => {
 
   server.on("connection", () => {
     const socket = server.clients[server.clients.length - 1];
-    // socket.send("__HANDSHAKE__");
+    socket.broadcast = (message) => {
+      socket.clients.forEach((client) => client.send(message));
+    };
   });
 
   return server;

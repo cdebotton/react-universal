@@ -6,5 +6,6 @@ $MOCHA_CMD \
   --growl \
   --debug \
   --es_staging \
+  --harmony \
   --compilers js:babel/register \
   tests/**/*.js

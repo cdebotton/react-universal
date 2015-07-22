@@ -8,8 +8,8 @@ const history = new BrowserHistory();
 const mount = document.getElementById("application");
 
 React.render((
-  <Application getRouter={ () => (
-    <Router history={history}
-            children={routes} />
-  ) } />
+  <Application getRouter={() => (
+     <Router history={history}
+             children={routes} />
+   )} />
 ), mount);

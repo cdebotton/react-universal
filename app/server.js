@@ -8,7 +8,6 @@ import proxy from "koa-proxy";
 import ws from "ws";
 import errors from "./middleware/errors";
 import react from "./middleware/react";
-import ws from "./utils/ws-server";
 
 const PORT = process.env.PORT || 3000;
 const ENV = process.env.NODE_ENV || "development";
@@ -28,6 +27,11 @@ app.use(serveStatic(path.join(__dirname, "../public")));
 app.use(react());
 
 const server = http.createServer(app.callback());
+const io = require("socket.io")(server);
+
+io.on("connection", (socket) => {
+  console.log("connection");
+});
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

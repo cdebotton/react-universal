@@ -9,6 +9,9 @@ import {createStore, applyMiddleware, combineReducers} from "redux";
 chai.should();
 chai.use(sinonChai);
 
+const ACTION_REQUEST = "@@redux-socket/ACTION_REQUEST";
+const ACTION_SUCCESS = "@@redux-socket/ACTION_SUCCESS";
+const ACTION_FAILURE = "@@redux-socket/ACTION_FAILURE";
 const reducers = {
   test: function(state={}, action) {
     return state;
@@ -51,16 +54,43 @@ describe("Redux Socket", () => {
     )(createStore);
     const store = createWithMiddleware(reducer);
     const {dispatch} = store;
-    const ACTION_TYPE = "TEST_ACTION";
 
-    sio.on(ACTION_TYPE, (message) => {
-      message.should.be("Hello");
-      done();
+    sio.on("connection", (socket) => {
+      socket.on("error", (err) => {
+        done(err);
+      });
+      socket.on(ACTION_REQUEST, (message) => {
+        message.should.eql({query: "Hello"});
+        done();
+      });
     });
 
     dispatch({
-      type: ACTION_TYPE,
-      message: "Hello"
+      type: ACTION_REQUEST,
+      responseTypes: [ACTION_SUCCESS, ACTION_FAILURE],
+      query: "Hello"
     });
+  });
+
+  it("should return a promise", () => {
+    const srv = http();
+    const sio = io(srv);
+    const createWithMiddleware = applyMiddleware(
+      socketMiddleware(client(srv))
+    )(createStore);
+    const store = createWithMiddleware(reducer);
+    const {dispatch} = store;
+    const promise = dispatch({
+      type: ACTION_REQUEST,
+      responseTypes: [ACTION_SUCCESS, ACTION_FAILURE],
+      query: `{
+        users {
+          id,
+          email
+        }
+      }`
+    });
+
+    promise.then.should.be.a("Function");
   });
 });

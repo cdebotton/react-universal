@@ -1,3 +1,4 @@
+let socketCache = null;
 const TIMEOUT = 5000;
 
 export default (io) => {
@@ -11,7 +12,9 @@ export default (io) => {
     dispatch({ type });
 
     const [SUCCESS, FAILURE] = responseTypes;
+
     const socket = await getSocket(io);
+
     socket.emit(type, {query, params});
 
     try {
@@ -28,8 +31,14 @@ export default (io) => {
 const getSocket = (io) => new Promise((resolve, reject) => {
   setTimeout(reject.bind(null, "timeout"), TIMEOUT);
 
+  if (socketCache) {
+    resolve(socketCache);
+  }
+
   try {
     io.on("connect", () => {
+      socketCache = io;
+
       resolve(io);
     });
   }

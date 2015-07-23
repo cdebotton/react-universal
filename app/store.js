@@ -11,8 +11,7 @@ if (process.env.BROWSER) {
   initialState = JSON.parse(window.__initialPayload__.innerHTML);
 }
 
-const WS_URL = "http://localhost:3000";
-
+const WS_URL = "ws://localhost:3000";
 const io = require("socket.io-client")(WS_URL, {
   transports: ["websocket"]
 });

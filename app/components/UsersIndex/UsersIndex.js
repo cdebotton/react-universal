@@ -51,6 +51,8 @@ export default class UsersIndex extends Component {
   }
 
   render() {
+    const {errors} = this.props.users;
+
     return (
       <div className={StyleSheet.container}>
         <h3>UsersIndex</h3>
@@ -60,7 +62,7 @@ export default class UsersIndex extends Component {
                  ref={(c) => this._newUserEmail = c} />
           <button type="submit">Create user</button>
         </form>
-        {this.props.users.errors.length ? this.getUsers() : this.printErrors()}
+        {errors.length ? this.getUsers() : this.printErrors()}
       </div>
     );
   }

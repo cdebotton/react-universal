@@ -38,15 +38,15 @@ const getSocket = (io) => new Promise((resolve, reject) => {
   }
 });
 
-const resolveWithResponseTypes = (socket, responseTypes) => {
-  const [SUCCESS, FAILURE] = responseTypes;
+const resolveWithResponseTypes = (socket, SUCCESS, FAILURE) => {
   return new Promise((resolve, reject) => {
     setTimeout(reject.bind(null, "timeout"), TIMEOUT);
 
-    socket.on(FAILURE, (exception) => {
-      reject(FAILURE);
+    socket.once(FAILURE, (exception) => {
+      reject(exception);
     });
-    socket.on(SUCCESS, (data) => {
+
+    socket.once(SUCCESS, (data) => {
       resolve(data);
     });
   });

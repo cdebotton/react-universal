@@ -8,9 +8,11 @@ import {
 } from "./containers";
 
 export default (
-  <Route path="/" component={ApplicationContainer}>
-    <Route path="users" component={UsersContainer}>
-      <Route path="create" component={UsersCreateContainer} />
+  <Route>
+    <Route path="/" component={ApplicationContainer}>
+      <Route path="users" component={UsersContainer}>
+        <Route path="create" component={UsersCreateContainer} />
+      </Route>
     </Route>
   </Route>
 );

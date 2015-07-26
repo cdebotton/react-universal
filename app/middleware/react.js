@@ -36,7 +36,7 @@ const getRoutes = () => new Promise((resolve, reject) => {
     catch (ex) {
       console.log("Awaiting assets...");
     }
-  }, 100);
+  }, 1000);
 });
 
 const getRouterProps = (routes, url) => new Promise((resolve, reject) => {

@@ -8,11 +8,6 @@ export default class Application extends Component {
     return (
       <DocumentTitle title="React Universal">
         <div className={StyleSheet.container}>
-          <h1>Application</h1>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/users">Users</Link>
-          </nav>
           {this.props.children}
         </div>
       </DocumentTitle>

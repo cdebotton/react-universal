@@ -8,4 +8,4 @@ $MOCHA_CMD \
   --es_staging \
   --harmony \
   --compilers js:babel/register \
-  tests/**/*.js
+  test/**/*.js

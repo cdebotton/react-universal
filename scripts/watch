@@ -8,4 +8,5 @@ NODE_ENV=development \
   $CONCURRENT_CMD --kill-others \
     "$SUPERVISOR_CMD -e js --harmony ./index.js" \
     "$WEBPACK_CMD --watch --debug --config ./webpack/webpack.server.js" \
+    "npm run test:watch" \
     "node ./scripts/dev-server"

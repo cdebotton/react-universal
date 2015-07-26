@@ -9,4 +9,4 @@ $MOCHA_CMD \
   --harmony \
   --compilers js:babel/register \
   --watch \
-  tests/**/*.js
+  test/**/*.js

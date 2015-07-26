@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from "react";
+import classNames from "classnames";
 import {Form} from "formsy-react";
 import {Input, Button, Submit} from "../Form";
 import StyleSheet from "./Users.styl";
@@ -34,7 +35,8 @@ export default class Users extends Component {
                 </a>
               </li>
               <li className={StyleSheet.navigationListItem}>
-                <Form onValidSubmit={::this.handleSubmit}
+                <Form className={StyleSheet.newUserForm}
+                      onValidSubmit={::this.handleSubmit}
                       onValid={::this.enableForm}
                       onInvalid={::this.disableForm}>
                   <Input name="email"

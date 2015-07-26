@@ -2,13 +2,24 @@
 @import "rupture"
 
 :local(.button) {
+  display flex
+  flex-flow row wrap
+  align-items center
+  justify-content center
   position relative
   border 1px solid black
   background-color transparent
   font-weight 800
   text-transform uppercase
-  font-size 0.5rem
+  font-size 0.6rem
+  padding 0 0.75rem
+  height 2.5rem
   cursor pointer
+
+  &[disabled] {
+    border-color lighten(grey, 50%)
+    color lighten(grey, 50%)
+  }
 
   &::before {
     content " "
@@ -24,7 +35,7 @@
     cursor inherit
   }
 
-  &:hover::before {
+  &:enabled:hover::before {
     top 0
     right 0
     bottom 0
@@ -37,7 +48,7 @@
   z-index 1
   cursor inherit
 
-  :local(.button):hover & {
+  :local(.button):enabled:hover & {
     color #fff
   }
 }

@@ -41,7 +41,8 @@ export default class Users extends Component {
                          validations="isEmail"
                          validationError="This is an invalid email"
                          required={true}
-                         placeholder="Email" />
+                         placeholder="Email"
+                         label="Email address" />
                   <button type="submit"
                           disabled={!this.state.canSubmit}>
                     Create user

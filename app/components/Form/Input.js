@@ -6,8 +6,14 @@ import StyleSheet from "./Input.styl";
 
 @mixin(Formsy)
 export default class Input extends Component {
+  state = {empty: true}
+
   handleChange(event) {
-    this.setValue(event.currentTarget.value);
+    const {value} = event.target;
+    const empty = value.length === 0;
+
+    this.setValue(value);
+    this.setState({empty});
   }
 
   render() {
@@ -16,12 +22,17 @@ export default class Input extends Component {
       [StyleSheet.required]: this.showRequired()
     }]);
 
+    const {label, ...rest} = this.props;
+
     return (
       <span className={cx}>
-        <input {...this.props}
+        <input {...rest}
                type="text"
                onChange={::this.handleChange}
                value={this.getValue()} />
+        {!this.state.empty && (
+          <span>{label}</span>
+        )}
         {this.showError() && (
           <span className={StyleSheet.error}>
             {this.getErrorMessage()}

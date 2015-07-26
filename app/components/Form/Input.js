@@ -1,24 +1,10 @@
 import React, {Component, PropTypes} from "react";
-import reactMixin from "react-mixin";
 import {Mixin as Formsy} from "formsy-react";
 import classNames from "classnames";
+import mixin from "../../decorators/mixin";
 import StyleSheet from "./Input.styl";
 
-function addMixin(mixin) {
-  return (reactClass) => reactMixin.onClass(reactClass, mixin);
-}
-
-function autobind(methodNames){
-  return {
-    componentWillMount: function() {
-      methodNames.forEach((name) => {
-        this[name] = this[name].bind(this);
-      });
-    }
-  };
-}
-
-@addMixin(Formsy)
+@mixin(Formsy)
 export default class Input extends Component {
   handleChange(event) {
     this.setValue(event.currentTarget.value);

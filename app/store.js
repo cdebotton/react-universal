@@ -10,11 +10,6 @@ if (process.env.BROWSER) {
   initialState = JSON.parse(window.__initialPayload__.innerHTML);
 }
 
-const WS_URL = "ws://localhost:3000";
-const io = require("socket.io-client")(WS_URL, {
-  transports: ["websocket"]
-});
-
 const reducer = combineReducers(reducers);
 const middlewares = applyMiddleware(thunk);
 const createCompStore = DEV ? compose(devTools(), createStore) : createStore;

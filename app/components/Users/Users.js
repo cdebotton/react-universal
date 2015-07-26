@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import {Form} from "formsy-react";
-import {Input} from "../Form";
+import {Input, Button, Submit} from "../Form";
 import StyleSheet from "./Users.styl";
 
 export default class Users extends Component {
@@ -40,13 +40,12 @@ export default class Users extends Component {
                   <Input name="email"
                          validations="isEmail"
                          validationError="This is an invalid email"
-                         required={true}
                          placeholder="Email"
-                         label="Email address" />
-                  <button type="submit"
-                          disabled={!this.state.canSubmit}>
+                         label="Email address"
+                         required />
+                  <Submit disabled={!this.state.canSubmit}>
                     Create user
-                  </button>
+                  </Submit>
                 </Form>
               </li>
             </ul>

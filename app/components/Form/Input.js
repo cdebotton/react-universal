@@ -4,6 +4,8 @@ import classNames from "classnames";
 import mixin from "../../decorators/mixin";
 import StyleSheet from "./Input.styl";
 
+const {addons: {CSSTransitionGroup}} = require("react/addons");
+
 @mixin(Formsy)
 export default class Input extends Component {
   state = {empty: true}
@@ -17,7 +19,7 @@ export default class Input extends Component {
   }
 
   render() {
-    const cx = classNames([StyleSheet.input, {
+    const cx = classNames([StyleSheet.container, this.props.className, {
       [StyleSheet.error]: this.showError(),
       [StyleSheet.required]: this.showRequired()
     }]);
@@ -27,17 +29,25 @@ export default class Input extends Component {
     return (
       <span className={cx}>
         <input {...rest}
+               className={StyleSheet.input}
                type="text"
                onChange={::this.handleChange}
                value={this.getValue()} />
-        {!this.state.empty && (
-          <span>{label}</span>
-        )}
-        {this.showError() && (
-          <span className={StyleSheet.error}>
-            {this.getErrorMessage()}
-          </span>
-        )}
+        <CSSTransitionGroup transitionName="label"
+                            className={StyleSheet.labelWrapper}>
+          {!this.state.empty && (
+            <span className={StyleSheet.label}
+                  key="label">
+              {label}
+            </span>
+          )}
+          {this.showError() && (
+            <span key="error"
+                  className={StyleSheet.errorLabel}>
+              {this.getErrorMessage()}
+            </span>
+          )}
+        </CSSTransitionGroup>
       </span>
     );
   }

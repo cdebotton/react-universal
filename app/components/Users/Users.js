@@ -34,24 +34,22 @@ export default class Users extends Component {
                   Groups
                 </a>
               </li>
-              <li className={StyleSheet.navigationListItem}>
-                <Form className={StyleSheet.newUserForm}
-                      onValidSubmit={::this.handleSubmit}
-                      onValid={::this.enableForm}
-                      onInvalid={::this.disableForm}>
-                  <Input name="email"
-                         validations="isEmail"
-                         validationError="This is an invalid email"
-                         placeholder="Email"
-                         label="Email address"
-                         required />
-                  <Submit disabled={!this.state.canSubmit}>
-                    Create user
-                  </Submit>
-                </Form>
-              </li>
             </ul>
           </nav>
+          <Form className={StyleSheet.newUserForm}
+              onValidSubmit={::this.handleSubmit}
+              onValid={::this.enableForm}
+              onInvalid={::this.disableForm}>
+          <Input name="email"
+                 validations="isEmail"
+                 validationError="This is an invalid email address"
+                 placeholder="Email"
+                 label="Email address"
+                 required />
+          <Submit disabled={!this.state.canSubmit}>
+            Create user
+          </Submit>
+          </Form>
         </header>
         {this.props.children}
       </div>

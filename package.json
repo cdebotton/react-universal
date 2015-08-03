@@ -25,17 +25,24 @@
   },
   "homepage": "https://github.com/cdebotton/cdb",
   "dependencies": {
+    "axios": "^0.5.4",
     "babel": "^5.8.20",
     "forever": "^0.15.1",
+    "formsy-react": "^0.14.1",
+    "graphql": "^0.2.3",
     "koa": "^0.21.0",
     "koa-compress": "^1.0.8",
     "koa-static": "^1.4.9",
+    "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
     "react": "^0.13.3",
     "react-document-title": "^1.0.2",
     "react-redux": "^0.2.2",
     "react-router": "^1.0.0-beta3",
     "redux": "^1.0.0-rc",
-    "redux-thunk": "^0.1.0"
+    "redux-thunk": "^0.1.0",
+    "sequelize": "^3.5.1",
+    "sequelize-cli": "^1.7.4"
   },
   "devDependencies": {
     "babel-core": "^5.8.20",

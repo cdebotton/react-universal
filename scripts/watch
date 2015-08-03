@@ -1,12 +1,9 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
-CONCURRENT_CMD=node_modules/.bin/concurrent
-SUPERVISOR_CMD=node_modules/.bin/supervisor
-WEBPACK_CMD=node_modules/.bin/webpack
+cp -f ./app/statics/* ./public
 
-NODE_ENV=development \
-  $CONCURRENT_CMD --kill-others \
-    "$SUPERVISOR_CMD -e js --harmony ./index.js" \
-    "$WEBPACK_CMD --watch --debug --config ./webpack/webpack.server.js" \
-    "npm run test:watch" \
-    "node ./scripts/dev-server"
+`npm bin`/concurrent \
+  --kill-others \
+  "./scripts/watch-server" \
+  "./scripts/watch-development" \
+  "`npm bin`/supervisor -e js,jade --harmony ./index.js"

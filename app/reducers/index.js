@@ -1,1 +1,1 @@
-export adminUi from "./adminUi";
+export counter from './counter';

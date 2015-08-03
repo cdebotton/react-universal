@@ -1,9 +1,13 @@
-#!/bin/sh
+#!/bin/sh -e
 
-WEBPACK_CMD=node_modules/.bin/webpack
-
-NODE_ENV=production \
-  $WEBPACK_CMD --config ./webpack/webpack.client.js
+mkdir -p ./public ./build
 
 NODE_ENV=production \
-  $WEBPACK_CMD --config ./webpack/webpack.server.js
+  `npm bin`/webpack \
+  --colors
+
+cp -f ./app/statics/* ./public
+
+NODE_ENV=server \
+  `npm bin`/webpack \
+  --colors

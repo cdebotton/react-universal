@@ -1,17 +1,24 @@
-#!/bin/env node
+#!/usr/bin/env node
 
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
-var config = require("../webpack/webpack.client");
+var config = require("../webpack.config");
 
-var bundler = webpack(config);
-var server = new WebpackDevServer(bundler, {
-  noInfo: true,
-  colors: true,
+var PORT = process.env.WEBPACK_PORT || 3001;
+var HOST = process.env.WEBPACK_HOST || "localhost";
+
+var compiler = webpack(config);
+var opts = {
   hot: true,
-  publicPath: config.output.publicPath
-});
+  quiet: false,
+  noInfo: true,
+  publicPath: config.output.publicPath,
+  stats: {
+    colors: true
+  },
+};
 
-server.listen(8080, "localhost", function() {
-  console.log("WebpackDevServer listening!");
+var server = new WebpackDevServer(compiler, opts);
+server.listen(PORT, HOST, function() {
+  console.log("WebpackDevServer listening on http://" + HOST + ":" + PORT + ".");
 });

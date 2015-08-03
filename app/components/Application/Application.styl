@@ -5,15 +5,22 @@ normalize-css()
 
 *,
 *::before,
-*::after {
+*::after
   box-sizing border-box
-}
 
-h1 {
-  margin-top 0
-}
+html
+  font-size 62.5%
 
-:local(.container) {
+body
   padding 2rem
-  min-height 100vh
-}
+
+:local(.container)
+  height 100%
+  display flex
+  flex-flow column wrap
+  align-items flex-start
+  justify-content flex-start
+
+:local(.header)
+  border-bottom 2px solid black
+  margin-bottom 2rem

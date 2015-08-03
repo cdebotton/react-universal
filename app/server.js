@@ -1,33 +1,37 @@
-import koa from "koa";
-import serveStatic from "koa-static";
-import compress from "koa-compress";
-import bodyparser from "koa-bodyparser";
-import path from "path";
-import http from "http";
-import proxy from "koa-proxy";
-import errors from "./middleware/errors";
-import react from "./middleware/react";
+import http from 'http';
+import path from 'path';
+import koa from 'koa';
+import compress from 'koa-compress';
+import serveStatic from 'koa-static';
+import React from 'react';
+import Layout from './views/Layout';
+import {
+  readWebpackStats,
+  renderMarkupWithPayload
+} from './utils/server-utils';
 
-const PORT = process.env.PORT || 3000;
-const ENV = process.env.NODE_ENV || "development";
 const app = koa();
+const PORT = process.env.PORT || 3000;
 
-if (ENV !== "production") {
-  app.use(proxy({
-    host: "http://localhost:8080",
-    match: /^\/build\//
-  }));
-}
-
-app.use(errors());
 app.use(compress());
-app.use(bodyparser());
-app.use(serveStatic(path.join(__dirname, "../public")));
-app.use(react());
+app.use(serveStatic(path.join(__dirname, '..', 'public')));
+app.use(function* render() {
+  const stats = yield readWebpackStats();
+  const {markup, payload} = yield renderMarkupWithPayload(this.req.url);
+
+  const html = React.renderToStaticMarkup(
+    <Layout
+      markup={markup}
+      payload={payload}
+      {...stats} />
+  );
+
+  this.body = `<!doctype>\n${html}`;
+});
 
 const server = http.createServer(app.callback());
 
 server.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  const {port} = server.address();
+  console.log(`Web server listening on port ${port}.`);
 });
-

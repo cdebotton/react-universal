@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+NODE_ENV=development ./scripts/dev-server

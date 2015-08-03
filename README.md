@@ -7,8 +7,11 @@ A work in progress, react universal (isomorphic) starter kit, built on:
 - Redux DevTools
 - ReactRouter
 - koa
+- babel
+
+Removed temporarily but being reintroduced soon:
+
 - Postgres
 - GraphQL
-- babel
 
 Real documentation coming soon...

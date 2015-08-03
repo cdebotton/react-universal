@@ -1,15 +1,19 @@
-import React from "react";
-import { Router } from "react-router";
-import BrowserHistory from "react-router/lib/BrowserHistory";
-import routes from "./routes";
-import Application from "./containers/Application";
+import React from 'react';
+import ClientContainer from './containers/ClientContainer';
+import HashHistory from 'react-router/lib/HashHistory';
+import BrowserHistory from 'react-router/lib/BrowserHistory';
 
-const history = new BrowserHistory();
-const mount = document.getElementById("application");
+require('font-awesome/css/font-awesome.css');
+
+const mount = document.getElementById('mount');
+
+let history;
+try {
+  history = new BrowserHistory();
+} catch (ex) {
+  history = new HashHistory();
+}
 
 React.render((
-  <Application getRouter={() => (
-     <Router history={history}
-             children={routes} />
-   )} />
+  <ClientContainer history={history} />
 ), mount);

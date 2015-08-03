@@ -1,19 +1,34 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { devTools } from "redux-devtools";
-import thunk from "redux-thunk";
-import * as reducers from "./reducers";
+import {devTools} from 'redux-devtools';
+import thunk from 'redux-thunk';
+import promise from './utils/redux-promise';
+import * as reducers from './reducers';
+import {
+  createStore as reduxCreateStore,
+  combineReducers,
+  compose,
+  applyMiddleware
+} from 'redux';
 
-const DEV = process.env.NODE_ENV === "development";
-let initialState;
+const ENV = process.env.NODE_ENV || 'development';
+const DEV = ENV === 'development';
+const reducer = combineReducers(reducers);
 
-if (process.env.BROWSER) {
-  initialState = JSON.parse(window.__initialPayload__.innerHTML);
+let createStore;
+if (DEV) {
+  createStore = compose(devTools(), reduxCreateStore);
+} else {
+  createStore = reduxCreateStore;
 }
 
-const reducer = combineReducers(reducers);
-const middlewares = applyMiddleware(thunk);
-const createCompStore = DEV ? compose(devTools(), createStore) : createStore;
-const finalCreateStore = middlewares(createCompStore);
-const store = finalCreateStore(reducer, initialState);
+let initialPayload;
 
-export default store;
+try {
+  const {innerHTML: payload} = document.getElementById('__payload__');
+  initialPayload = JSON.parse(payload);
+} catch (ex) {
+  initialPayload = {};
+}
+
+createStore = applyMiddleware(thunk, promise)(createStore);
+
+export default createStore(reducer, initialPayload);

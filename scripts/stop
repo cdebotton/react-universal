@@ -1,4 +1,3 @@
-FOREVER_CMD=node_modules/.bin/forever
+#!/bin/sh -e
 
-NODE_ENV=production \
-  $FOREVER_CMD stop production_server
+`npm bin`/forever stop "production"

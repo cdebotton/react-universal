@@ -1,11 +1,9 @@
-FOREVER_CMD=node_modules/.bin/forever
+#!/bin/sh -e
 
 NODE_ENV=production \
-  $FOREVER_CMD start \
-    -c "node --harmony" \
-    --uid "production_server" \
+  `npm bin`/forever start \
     --append \
-    --colors \
-    --verbose \
-    --debug \
+    --uid "production" \
+    -c "node --harmony" \
+    -l "debotton.io" \
     ./index.js

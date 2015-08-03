@@ -1,3 +1,5 @@
 #!/bin/sh -e
 
-rm -rf public/* app/assets/*
+`npm bin`/rimraf \
+  public/* \
+  build/*

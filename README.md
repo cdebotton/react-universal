@@ -1,17 +1,22 @@
 # react-universal
 
-A work in progress, react universal (isomorphic) starter kit, built on:
+A work in progress, this is my ideal setup for working with React on the client
+and the server.
 
-- React
-- Redux
-- Redux DevTools
-- ReactRouter
+- react
+- redux
+- redux devtools
+- react-router
 - koa
 - babel
+- webpack
 
-Removed temporarily but being reintroduced soon:
+I recently rewrote the build process from scratch and restructured the folders,
+and in doing so, I temporarily removed the following:
 
-- Postgres
-- GraphQL
+- postgres
+- graphql
+
+These features will be added back very soon.
 
 Real documentation coming soon...

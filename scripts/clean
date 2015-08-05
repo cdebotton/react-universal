@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+mkdir -p ./public ./build
+
 `npm bin`/rimraf \
   public/* \
   build/*

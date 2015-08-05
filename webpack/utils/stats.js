@@ -22,7 +22,7 @@ exports.WriteStatsPlugin = function(opts) {
 
         return memo;
       }, {js: [], css: []});
-
+      console.log(stats);
       fs.writeFileSync(
         opts.target,
         JSON.stringify(stats)

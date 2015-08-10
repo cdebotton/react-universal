@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {Provider} from 'react-redux'
+import {Provider} from 'react-redux';
 import {Router} from 'react-router';
 import store from '../store';
 
 export default class ServerContainer extends Component {
   static propTypes = {
-    routerProps: PropTypes.object.isRequired
+    routerProps: PropTypes.object.isRequired,
   }
 
   static getStoreState() {

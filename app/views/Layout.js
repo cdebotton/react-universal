@@ -6,29 +6,7 @@ export default class Layout extends Component {
     js: PropTypes.arrayOf(PropTypes.string).isRequired,
     css: PropTypes.arrayOf(PropTypes.string).isRequired,
     markup: PropTypes.string.isRequired,
-    payload: PropTypes.object.isRequired
-  }
-
-  render() {
-    const scripts = this.renderScripts();
-    const styles = this.renderStyles();
-    const payload = this.renderPayload();
-
-    return (
-      <html>
-      <head>
-        <title>{DocumentTitle.rewind()}</title>
-        {styles}
-      </head>
-      <body>
-        <div
-          id="mount"
-          dangerouslySetInnerHTML={{__html: this.props.markup}} />
-        {payload}
-        {scripts}
-      </body>
-      </html>
-    );
+    payload: PropTypes.object.isRequired,
   }
 
   renderPayload() {
@@ -57,5 +35,27 @@ export default class Layout extends Component {
         rel="stylesheet"
         href={href} />
     ));
+  }
+
+  render() {
+    const scripts = this.renderScripts();
+    const styles = this.renderStyles();
+    const payload = this.renderPayload();
+
+    return (
+      <html>
+      <head>
+        <title>{DocumentTitle.rewind()}</title>
+        {styles}
+      </head>
+      <body>
+        <div
+          id="mount"
+          dangerouslySetInnerHTML={{__html: this.props.markup}} />
+        {payload}
+        {scripts}
+      </body>
+      </html>
+    );
   }
 }

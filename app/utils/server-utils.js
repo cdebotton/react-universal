@@ -5,7 +5,7 @@ import {Router} from 'react-router';
 import Location from 'react-router/lib/Location';
 import ServerContainer from '../containers/ServerContainer';
 
-export const readWebpackStats = () => new Promise((resolve, reject) => {
+export const readWebpackStats = () => new Promise((resolve) => {
   const statsFile = path.join(
     __dirname,
     '..',
@@ -22,22 +22,20 @@ export const readWebpackStats = () => new Promise((resolve, reject) => {
 
     try {
       resolve(JSON.parse(data));
-    }
-    catch (ex) {
+    } catch (ex) {
       resolve(defaults);
     }
   });
 });
 
 export const renderMarkupWithPayload = (url) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const routes = require('../../build/application.compiled');
     const location = new Location(url);
     Router.run(routes, location, (err, routerProps) => {
       if (err) {
         resolve(err);
-      }
-      else {
+      } else {
         const markup = React.renderToString(
           <ServerContainer routerProps={routerProps} />
         );

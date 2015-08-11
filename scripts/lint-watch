@@ -5,17 +5,11 @@ var colors = require('colors');
 var path = require('path');
 var spawn = require('child_process').spawn;
 
+var JS_ROOT = path.join(__dirname, '..', 'www', 'craftcms', 'app', 'src', 'js');
+
 var dirs = [
-  path.join(__dirname, '..', 'app', '**', '*.js')
+  path.join(JS_ROOT, 'components', 'AssetLibrary', '**', '*.js')
 ];
-
-gaze(dirs, function(filepath) {
-  this.on('all', function(event, filepath) {
-    lint();
-  });
-
-  lint();
-});
 
 function lint() {
   var linter = spawn('./scripts/lint', [], {stdio: 'inherit'});
@@ -34,7 +28,15 @@ function lint() {
 
   linter.on('exit', function(code) {
     if (code === 0) {
-      process.stdout.write(colors.green('✖ 0 problems (0 errors, 0 warnings)\n'));
+      process.stdout.write(colors.green('✓ 0 problems (0 errors, 0 warnings)\n'));
     }
   });
 }
+
+gaze(dirs, function(filepath) {
+  this.on('all', function(event, filepath) {
+    lint();
+  });
+
+  lint();
+});

@@ -1,7 +1,8 @@
-.DS_Store
-._*
-npm-debug.log
-thumbs.db
 node_modules
 build/*
 public/*
+
+._*
+.DS_Store
+thumbs.db
+npm-debug.log

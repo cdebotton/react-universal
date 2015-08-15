@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
-NODE_ENV=production \
-  `npm bin`/forever start \
-    --append \
-    --uid "production" \
-    -c "node --harmony" \
-    -l "debotton.io" \
-    ./index.js
+`npm bin`/forever \
+  start \
+  --append \
+  --uid "production" \
+  -l "app.production" \
+  -c "node --harmony" \
+  ./index.js

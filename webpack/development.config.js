@@ -1,77 +1,99 @@
-var webpack = require("webpack");
-var path = require("path");
-var stats = require("./utils/stats");
+import path from 'path';
+import webpack from 'webpack';
+import {
+  ReportStatsPlugin,
+  WriteStatsPlugin,
+} from './helpers/plugins';
 
-var DEV_PORT = process.env.DEV_PORT || 3001;
-var CLIENT = "http://localhost:" + DEV_PORT;
-var publicPath = CLIENT + "/";
+const WEBPACK_PORT = process.env.WEBPACK_PORT || '3333';
+const PUBLIC_PATH = `http://localhost:${WEBPACK_PORT}/`;
 
-exports.name = "development";
-
-exports.target = "web";
-
-exports.devtool = "eval-source-map";
-
-exports.entry = {
-  "bundle": [
-    "webpack-dev-server/client?" + CLIENT,
-    "webpack/hot/only-dev-server",
-    path.resolve(__dirname, "..", "app", "client.js")
+export default {
+  devtool: '#eval',
+  entry: {
+    bundle: [
+      `webpack-dev-server/client?${PUBLIC_PATH}`,
+      'webpack/hot/only-dev-server',
+      path.join(__dirname, '..', 'src', 'client.js'),
+    ],
+  },
+  output: {
+    path: path.join(__dirname, '..', 'public','build'),
+    publicPath: PUBLIC_PATH,
+    filename: '[hash].js',
+    chunkFilename: '[chunkhash].js',
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        exclude: /node_modules/,
+        loader: 'json',
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?name=fonts/[name].[ext]&limit=10000&minetype=application/font-woff',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        include: /font/,
+        loader: 'file?name=fonts/[name].[ext]',
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        exclude: /node_modules/,
+        loader: 'file?name=assets/[name].[ext]',
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style',
+          'css'
+        ],
+      },
+      {
+        test: /\.styl$/,
+        loaders: [
+          'style',
+          'css',
+          'stylus'
+        ],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ['react-hot', 'babel'],
+      }
+    ],
+  },
+  babel: {
+    stage: 0,
+    loose: [
+      'all'
+    ],
+    optional: [
+      'runtime'
+    ],
+    plugins: [
+      path.join(__dirname, 'helpers', 'babel-relay-plugin'),
+    ],
+  },
+  stylus: {
+    use: [
+      require('nib')(),
+      require('rupture')(),
+    ],
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        NODE_ENV: 'development',
+        BROWSER: true,
+      }),
+    }),
+    new ReportStatsPlugin(),
+    new WriteStatsPlugin(),
   ]
-}
-
-exports.outputPath = path.resolve(__dirname, "..", "public");
-exports.outputPublicPath = publicPath;
-
-exports.modulePreLoaders = [
-  {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: "eslint"
-  }
-];
-
-exports.moduleLoaders = [
-  {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: "react-hot!babel?optional=runtime&stage=0&loose=all"
-  },
-  {
-    test: /\.css$/,
-    loader: "style!css"
-  },
-  {
-    test: /\.styl$/,
-    loader: "style!css!stylus"
-  },
-  {
-    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: "url?name=fonts/[name].[ext]&limit=10000&minetype=application/font-woff"
-  },
-  {
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    include: /font/,
-    loader: "file?name=fonts/[name].[ext]"
-  },
-  {
-    test: /\.ico$/,
-    loader: "file?name=[name].[ext]"
-  }
-];
-
-exports.plugins = [
-  new webpack.DefinePlugin({
-    "process.env": JSON.stringify({
-      "NODE_ENV": "development",
-      "BROWSER": true
-    })
-  }),
-  new webpack.NoErrorsPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new stats.WriteStatsPlugin({
-    publicPath: exports.outputPublicPath,
-    target: path.join(__dirname, "..", "public", "webpack-stats.json")
-  })
-];
+};

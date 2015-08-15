@@ -1,13 +1,7 @@
 #!/bin/sh -e
 
-mkdir -p ./public ./build
+NODE_ENV=server \
+  `npm bin`/webpack
 
 NODE_ENV=production \
-  `npm bin`/webpack \
-  --colors
-
-cp -f ./app/statics/* ./public
-
-NODE_ENV=server \
-  `npm bin`/webpack \
-  --colors
+  `npm bin`/webpack

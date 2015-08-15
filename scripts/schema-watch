@@ -1,0 +1,34 @@
+#!/usr/bin/env babel-node --stage 0
+
+import gaze from 'gaze';
+import path from 'path';
+import {spawn} from 'child_process';
+import {green, yellow} from 'colors';
+
+const ROOT = path.join(__dirname, '..');
+const JS = path.join('**', '*.js');
+const dirs = [
+  path.join(ROOT, 'data', JS),
+];
+
+const compile = (event, pathname) => {
+  process.stdout.write(yellow('Compiling schema...\n'));
+  const compiler = spawn('./scripts/schema', [], {stdio: 'inherit'});
+
+  if (compiler.stdout) {
+    compiler.stdout.on('data', process.stdout.write);
+  }
+
+  if (compiler.stderr) {
+    compiler.stderr.on('data', process.stderr.write);
+  }
+
+  compiler.on('exit', (code) => {
+    process.stdout.write(green('Compiled schema.json\n'));
+  });
+};
+
+gaze(dirs, function() {
+  compile();
+  this.on('all', compile);
+});

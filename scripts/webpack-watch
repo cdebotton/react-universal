@@ -1,0 +1,25 @@
+#!/usr/bin/env node_modules/.bin/babel-node --stage=0
+
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import config from '../webpack.config';
+import {green} from 'colors';
+
+const WEBPACK_PORT = process.env.WEBPACK_PORT || '3333';
+
+const compiler = webpack(config);
+const devServer = new WebpackDevServer(compiler, {
+  hot: true,
+  publicPath: config.output.publicPath,
+  quiet: false,
+  noInfo: true,
+  stats: {
+    colors: true,
+  },
+});
+
+devServer.listen(WEBPACK_PORT, 'localhost', () => {
+  console.log(
+    green(`WebpackDevServer running at http://localhost:${WEBPACK_PORT}`)
+  );
+});

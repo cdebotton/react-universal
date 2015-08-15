@@ -1,65 +1,95 @@
-var webpack = require("webpack");
-var path = require("path");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var stats = require("./utils/stats");
+import path from 'path';
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import {
+  ReportStatsPlugin,
+  WriteStatsPlugin,
+} from './helpers/plugins';
 
-exports.name = "production";
+const PUBLIC_PATH = `/build/`;
 
-exports.target = "web";
-
-exports.entry = {
-  "bundle": path.resolve(__dirname, "..", "app", "client.js")
-}
-
-exports.outputPath = path.resolve(__dirname, "..", "public");
-exports.outputPublicPath = "/";
-
-exports.modulePreLoaders = [
-  {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: "eslint"
-  }
-];
-
-exports.moduleLoaders = [
-  {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: "babel?optional=runtime&stage=0&loose=all"
+export default {
+  entry: {
+    bundle: path.join(__dirname, '..', 'src', 'client.js'),
   },
-  {
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract("style", "css")
+  output: {
+    path: path.join(__dirname, '..', 'public','build'),
+    publicPath: PUBLIC_PATH,
+    filename: '[hash].js',
+    chunkFilename: '[chunkhash].js',
   },
-  {
-    test: /\.styl$/,
-    loader: ExtractTextPlugin.extract("style", "css!stylus")
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        exclude: /node_modules/,
+        loader: 'json',
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?name=fonts/[name].[ext]&limit=10000&minetype=application/font-woff',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        include: /font/,
+        loader: 'file?name=fonts/[name].[ext]',
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        exclude: /node_modules/,
+        loader: 'file?name=assets/[name].[ext]',
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css'),
+      },
+      {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract('style', 'css!stylus'),
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+      }
+    ],
   },
-  {
-    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: "url?name=fonts/[name].[ext]&limit=10000&minetype=application/font-woff"
+  babel: {
+    stage: 0,
+    loose: [
+      'all'
+    ],
+    optional: [
+      'runtime'
+    ],
+    plugins: [
+      path.join(__dirname, 'helpers', 'babel-relay-plugin'),
+    ],
   },
-  {
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    include: /font/,
-    loader: "file?name=fonts/[name].[ext]"
-  }
-];
-
-exports.plugins = [
-  new webpack.DefinePlugin({
-    "process.env": JSON.stringify({
-      "NODE_ENV": "production",
-      "BROWSER": true
-    })
-  }),
-  new ExtractTextPlugin("stylesheets/[hash].css"),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.UglifyJsPlugin(),
-  new stats.WriteStatsPlugin({
-    publicPath: exports.outputPublicPath,
-    target: path.join(__dirname, "..", "public", "webpack-stats.json")
-  })
-];
+  stylus: {
+    use: [
+      require('nib')(),
+      require('rupture')(),
+    ],
+  },
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+      },
+    }),
+    new ExtractTextPlugin('/stylesheets/[hash].css'),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        NODE_ENV: 'production',
+        BROWSER: true,
+      }),
+    }),
+    new ReportStatsPlugin(),
+    new WriteStatsPlugin(),
+  ]
+};

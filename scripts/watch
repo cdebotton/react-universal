@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-cp -f ./app/statics/* ./public
-
-`npm bin`/concurrent \
-  --kill-others \
-  "./scripts/watch-server" \
-  "./scripts/watch-development" \
-  "`npm bin`/supervisor -e js,jade --harmony ./index.js"

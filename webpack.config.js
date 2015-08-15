@@ -1,32 +1,11 @@
-var path = require("path");
-var ENV = process.env.NODE_ENV || "development";
-var configFile = path.join(__dirname, "webpack", ENV + ".config");
-var config = require(configFile);
+var path = require('path');
 
-module.exports = {
-  devtool: config.devtool,
-  target: config.target,
-  externals: config.externals,
-  entry: config.entry,
-  output: {
-    path: config.outputPath,
-    publicPath: config.outputPublicPath,
-    filename: config.filename || "[hash].js",
-    chunkFilename: "[chunkhash].js",
-    libraryTarget: config.libraryTarget
-  },
-  module: {
-    preLoaders: config.modulePreLoaders || [],
-    loaders: config.moduleLoaders
-  },
-  plugins: config.plugins,
-  stylus: {
-    use: [
-      require("nib")(),
-      require("rupture")()
-    ]
-  },
-  eslint: {
-    failOnError: false
-  }
-};
+require('babel/register')({
+  stage: 0,
+  loose: ['all'],
+});
+
+var ENV = process.env.NODE_ENV || 'development';
+var envPath = path.resolve(__dirname, 'webpack', ENV + '.config.js');
+
+module.exports = require(envPath);

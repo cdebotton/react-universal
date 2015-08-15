@@ -1,4 +1,3 @@
-lib
-**/node_modules
-**/webpack/**
+**/node_modules/
+public
 build

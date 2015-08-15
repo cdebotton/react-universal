@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+NODE_ENV=server \
+  `npm bin`/webpack \
+    --watch

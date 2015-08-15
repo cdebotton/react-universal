@@ -1,7 +1,0 @@
-"use strict";
-
-module.exports = {
-  "models-path": "./app/models",
-  "migrations-path": "./app/migrations",
-  "config": "./app/config/db.json"
-};

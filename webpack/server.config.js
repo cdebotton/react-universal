@@ -1,55 +1,77 @@
-var webpack = require("webpack");
-var path = require("path");
-var fs = require("fs");
-var stats = require("./utils/stats");
-var ENV = process.env.NODE_ENV || "development";
+import path from 'path';
+import webpack from 'webpack';
+import fs from 'fs';
+import {
+  ReportStatsPlugin,
+} from './helpers/plugins';
 
-exports.name = "server";
+const PUBLIC_PATH = `/`;
 
-exports.target = "node";
-
-exports.filename = "application.compiled.js";
-
-exports.externals = fs.readdirSync(path.join(__dirname, "..", "node_modules"))
-  .reduce(function(memo, dir) {
-    if ([".bin"].indexOf(dir) === -1) {
+export default {
+  target: 'node',
+  externals: fs.readdirSync(path.join(__dirname, '..', 'node_modules'))
+    .filter((dir) => ['.bin'].indexOf(dir) === -1)
+    .reduce((memo, dir) => {
       memo[dir] = dir;
-    }
-    return memo;
-  }, {});
-
-exports.libraryTarget = "commonjs2";
-
-exports.entry = {
-  "bundle": path.resolve(__dirname, "..", "app", "routes.js")
+      return memo;
+    }, {}),
+  entry: {
+    bundle: path.join(__dirname, '..', 'src', 'routes.js'),
+  },
+  output: {
+    path: path.join(__dirname, '..','build'),
+    publicPath: PUBLIC_PATH,
+    filename: 'routes-compiled.js',
+    chunkFilename: '[chunkhash].js',
+    'libraryTarget': 'commonjs2',
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.css$/,
+        loaders: 'css/locals',
+      },
+      {
+        test: /\.styl$/,
+        loaders: [
+          'css/locals',
+          'stylus'
+        ],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+      }
+    ],
+  },
+  babel: {
+    stage: 0,
+    loose: [
+      'all',
+    ],
+    optional: [
+      'runtime',
+    ],
+    plugins: [
+      path.join(__dirname, 'helpers', 'babel-relay-plugin'),
+    ],
+  },
+  stylus: {
+    use: [
+      require('nib')(),
+      require('rupture')(),
+    ],
+  },
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        NODE_ENV: 'server',
+        BROWSER: false,
+      }),
+    }),
+    new ReportStatsPlugin(),
+  ]
 };
-
-exports.outputPath = path.resolve(__dirname, "..", "build");
-exports.outputPublicPath = "/build/";
-
-exports.moduleLoaders = [
-  {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: "babel?optional=runtime&stage=0&loose=all"
-  },
-  {
-    test: /\.css$/,
-    loader: "css-loader/locals"
-  },
-  {
-    test: /\.styl$/,
-    loader: "css-loader/locals!stylus"
-  }
-];
-
-exports.plugins = [
-  new webpack.DefinePlugin({
-    "process.env": JSON.stringify({
-      "NODE_ENV": ENV,
-      "BROWSER": false
-    })
-  }),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.optimize.DedupePlugin()
-];

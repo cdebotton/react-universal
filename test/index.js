@@ -9,4 +9,9 @@ describe('Sample Test', () => {
     const answer = 2;
     (1 + 1).should.equal(answer);
   });
+
+  it('should not pass', () => {
+    const answer = 2;
+    ((1 + 3).should.equal.bind(null, answer)).should.throw;
+  });
 });

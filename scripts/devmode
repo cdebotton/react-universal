@@ -12,6 +12,9 @@ const screen = blessed.screen({
   smartCSR: true,
   terminal: 'xterm-256color',
   fullUnicode: true,
+  dockBorders: true,
+  autoPadding: true,
+  forceUnicode: true,
 });
 
 const commands = {
@@ -20,6 +23,7 @@ const commands = {
   'ESLint': 'npm run lint:watch -s',
   'Relay Schema': 'npm run schema:watch -s',
   'Webpack Node': 'npm run webpack-node:watch -s',
+  'Mocha': 'npm run test:watch -s',
 };
 
 let actives = [];
@@ -42,7 +46,7 @@ const terminals = Object.keys(commands).map((name) => {
 }).map((commandObject, key) => {
   const {label, command} = commandObject;
   const [cmd, ...opts] = command.split(' ');
-  const width = 100 / Object.keys(commands).length;
+  const width = Math.floor(screen.cols / Object.keys(commands).length);
   const box = blessed.box({
     label: ` ${label} `,
     padding: {
@@ -58,19 +62,24 @@ const terminals = Object.keys(commands).map((name) => {
     vi: true,
     top: 2,
     content: `Waiting for ${label} content...\n`,
-    height: screen.rows- 3,
-    width: `${width}%-1`,
-    left: `${Math.floor(key * width)}%+1`,
+    height: screen.rows - 3,
+    width: width + 1,
+    left: key * (width),
     parent: screen,
     scrollbar: {
       ch: 'o',
     },
+    border: 'line',
     style: {
-      label: {
-        fg: '#222222',
-        bg: '#eeeeee',
-      },
       bg: '#111111',
+      border: {
+        bg: '#111111',
+        fg: 'yellow',
+      },
+      label: {
+        fg: 'yellow',
+        bg: 'blue',
+      },
       scrollbar: {
         fg: 'red',
         hover: {
@@ -143,11 +152,11 @@ const terminals = Object.keys(commands).map((name) => {
     }
 
     terminals.forEach((terminal) => {
+      const width = Math.floor(screen.cols / Object.keys(actives).length);
       const activeIndex = actives.indexOf(terminal);
       if (activeIndex > -1) {
-        const width = 100 / actives.length;
-        terminal.width = `${Math.floor(width)}%-1`;
-        terminal.left = `${activeIndex * width}%+2`;
+        terminal.width = width + 1;
+        terminal.left = activeIndex * width;
       } else {
         terminal.width = 0;
       };
@@ -161,7 +170,7 @@ const terminals = Object.keys(commands).map((name) => {
   actives.push(box);
 
   program.stdout.on('data', (data) => {
-    box.pushLine(data);
+    box.pushLine(decoder.write(data));
     const scrollHeight = box.getScrollHeight();
     box.setScroll(scrollHeight);
     screen.render();

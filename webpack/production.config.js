@@ -21,6 +21,10 @@ export default {
   module: {
     loaders: [
       {
+        test: /\.ico$/,
+        loader: 'file?name/[name].[ext]',
+      },
+      {
         test: /\.json$/,
         exclude: /node_modules/,
         loader: 'json',

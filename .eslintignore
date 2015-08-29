@@ -1,3 +1,5 @@
+./webpack.config.js
+./data/migrations
 **/node_modules/
 public
 build

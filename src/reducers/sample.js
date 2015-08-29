@@ -9,7 +9,7 @@ const initialState = {
   isIncreasing: false,
 };
 
-export default function sample(state=initialState, action) {
+export default function sample(state = initialState, action) {
   switch (action.type) {
   case INCREASE:
     return {...state, isIncreasing: false, count: state.count + 1};

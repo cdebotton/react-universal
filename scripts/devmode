@@ -47,7 +47,7 @@ const terminals = Object.keys(commands).map((name) => {
   const {label, command} = commandObject;
   const [cmd, ...opts] = command.split(' ');
   const width = Math.floor(screen.cols / Object.keys(commands).length);
-  const box = blessed.box({
+  const box = blessed.terminal({
     label: ` ${label} `,
     padding: {
       top: 2,
@@ -170,7 +170,7 @@ const terminals = Object.keys(commands).map((name) => {
   actives.push(box);
 
   program.stdout.on('data', (data) => {
-    box.pushLine(decoder.write(data));
+    box.term.write(decoder.write(data));
     const scrollHeight = box.getScrollHeight();
     box.setScroll(scrollHeight);
     screen.render();

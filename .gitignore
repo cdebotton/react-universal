@@ -1,0 +1,15 @@
+.DS_Store
+._*
+thumbs.db
+
+node_modules
+
+npm-debug.log*
+*.log
+logs
+
+dist/*
+!dist/.gitkeep
+
+public/*
+!public/.gitkeep

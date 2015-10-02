@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "globals": {
+    "__DEV__": false,
+    "__PROD__": false,
+    "__DEBUG__": false,
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "react/no-multi-comp": 0,
+    "no-console": 0,
+    "block-scoped-var": 0,
+    "padded-blocks": 0,
+    "max-len": [2, 80, 2]
+  },
+  "plugins": [
+    "react"
+  ]
+}

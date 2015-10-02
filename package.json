@@ -1,0 +1,22 @@
+{
+  "name": "react-universal",
+  "version": "2.0.0",
+  "description": "A universal, type checked, linted, graphql backed, starter-kit with react, redux, and react-router.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdebotton/react-universal.git"
+  },
+  "author": "Christian de Botton <debotton@brooklynunited.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cdebotton/react-universal/issues"
+  },
+  "homepage": "https://github.com/cdebotton/react-universal#readme",
+  "dependencies": {
+    "spawn-monitor": "^1.1.4"
+  }
+}

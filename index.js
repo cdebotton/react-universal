@@ -1,33 +1,38 @@
 require('babel/register');
 
-var createMonitor = require('./lib/createMonitor');
+var createMonitor = require('spawn-monitor').createMonitor;
+var config = require('./config');
+var paths = config.get('paths');
 
-// createMonitor({
-//   script: './bin/client',
-//   key: 'client',
-// });
+createMonitor({
+  script: paths.bin('client'),
+  key: 'client',
+  rebootOnChange: [
+    paths.project('src'),
+  ],
+});
 
 // createMonitor({
 //   script: './bin/dev-server',
 //   key: 'dev-server',
 // });
 
-// createMonitor({
-//   script: './bin/flow',
-//   key: 'flow',
-// });
+createMonitor({
+  script: './bin/flow',
+  key: 'flow',
+});
 
-// createMonitor({
-//   script: './bin/graphql',
-//   key: 'graphql',
-// });
+createMonitor({
+  script: './bin/graphql',
+  key: 'graphql',
+});
 
 // createMonitor({
 //   script: './bin/graphiql',
 //   key: 'graphiql',
 // });
 
-createMonitor({
-  script: './bin/test',
-  key: 'test',
-});
+// createMonitor({
+//   script: './bin/test',
+//   key: 'test',
+// });

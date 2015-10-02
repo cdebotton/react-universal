@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-`npm bin`/rimraf \
-  ./build/* \
-  ./public/*

@@ -1,9 +1,0 @@
-node_modules
-public/*
-!public/robots.txt
-build/*
-!build/.gitkeep
-.DS_Store
-._*
-thumbs.db
-npm-debug.log

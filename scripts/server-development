@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-`npm bin`/supervisor \
-  --extensions js,jade,json \
-  --harmony \
-  ./index.js

@@ -1,3 +1,0 @@
-#!/bin/sh -e
-
-`npm bin`/forever stop "production"

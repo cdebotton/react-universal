@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-`npm bin`/forever \
-  start \
-  --append \
-  --uid "production" \
-  -l "app.production" \
-  -c "node --harmony" \
-  ./index.js

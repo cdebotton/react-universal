@@ -1,0 +1,22 @@
+#!/usr/bin/env node_modules/.bin/babel-node
+
+import { Gaze } from 'gaze';
+import path from 'path';
+import { spawn } from 'pty.js';
+import config from '../config';
+
+const gaze = new Gaze();
+const paths = config.get('paths');
+const server = spawn('flow');
+
+server.on('data', data => process.stdout.write(data));
+
+function flowCheck() {
+  const check = spawn('flow', ['check'])
+  check.on('data', data => process.stdout.write(data));
+}
+
+gaze.add(path.join(paths.project('data'), '**', '*.js'));
+gaze.add(path.join(paths.project('app'), '**', '*.js'));
+gaze.on('ready', () => 'Flow watcher ready.');
+gaze.on('all', flowCheck);

@@ -21,13 +21,14 @@ const jade = new Jade({
   viewPath: path.join(__dirname, 'views'),
 });
 
+app.use(compress());
+
 if (__DEV__) {
   app.use(mount('/build', proxy({ host: webpackPublicPath })));
 } else {
   app.use(mount('/build', serve(paths.dist('client'))));
 }
 
-app.use(compress());
 app.use(jade.middleware);
 app.use(function* render() {
   const stats = yield readJSON(paths.dist('webpack-stats.json'));

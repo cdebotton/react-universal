@@ -4,6 +4,9 @@
   "description": "A universal, type checked, linted, graphql backed, starter-kit with react, redux, and react-router.",
   "main": "index.js",
   "scripts": {
+    "build": "NODE_ENV=production `npm bin`/webpack",
+    "prestart": "npm run build -s",
+    "start": "NODE_ENV=production node index",
     "test": "npm run test"
   },
   "repository": {

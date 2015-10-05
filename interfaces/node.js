@@ -1,3 +1,5 @@
+declare var __DEBUG__: boolean;
+
 declare class Koa {
   keys: Array<string>;
   use(middleware: Function): Generator;
@@ -111,4 +113,21 @@ declare module 'react-dom' {
     element: ReactElement,
     target: any
   ): any;
+}
+
+declare class ReduxStore {
+  replaceReducer(reducer: Function): Function
+}
+
+declare module 'redux' {
+  declare function compose(...middleware: Array<Function>): Function;
+  declare function createStore(rootReducer: Function, initialState: ?{}): ReduxStore;
+}
+
+declare module 'redux-devtools' {
+  declare function devTools(): Function;
+}
+
+declare module 'redux-thunk' {
+  declare function exports(): Function;
 }

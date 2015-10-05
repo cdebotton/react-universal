@@ -94,10 +94,11 @@ export default {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin(Object.assign(globals, {
+    new webpack.DefinePlugin({
+      ...globals,
       __CLIENT__: true,
       __SERVER__: false,
-    })),
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new ReportStatsPlugin(),

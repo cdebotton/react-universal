@@ -66,6 +66,7 @@ export default function renderClient(): Function {
       } catch (ex) {
         routes = null;
         store = null;
+        throw ex;
       }
     }
 
@@ -91,10 +92,12 @@ export default function renderClient(): Function {
         break;
       }
     } else {
-      const stats = yield readJSON(paths.dist('webpack-stats.json'));
-      const markup = renderToString(<RoutingContext {...result} />);
+      if (result) {
+        const stats = yield readJSON(paths.dist('webpack-stats.json'));
+        const markup = renderToString(<RoutingContext {...result} />);
 
-      this.render('index', { ...stats, markup });
+        this.render('index', { ...stats, markup });
+      }
     }
   }
 }

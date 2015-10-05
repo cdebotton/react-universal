@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import fs from 'fs';
 import base, { cssIdentName } from './base';
-import { paths } from '../../config';
+import { paths, globals } from '../../config';
 
 export default {
   ...base,
@@ -38,6 +38,11 @@ export default {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      ...globals,
+      __CLIENT__: false,
+      __SERVER__: true,
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
   ],

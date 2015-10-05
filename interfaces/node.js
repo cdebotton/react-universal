@@ -95,8 +95,20 @@ declare function RoutingContext(opts: ?{}): ReactComponent;
 declare module 'react-router' {
   declare function match(opts: MatchConfig, callback: MatchCallback): void;
   declare var RoutingContext: RoutingContext;
+  declare var Router: any;
 }
 
 declare module 'react-dom/server' {
   declare function renderToString(context: RoutingContext): string;
+}
+
+declare module 'history/lib/createBrowserHistory' {
+  declare function exports(): {};
+}
+
+declare module 'react-dom' {
+  declare function render(
+    element: ReactElement,
+    target: any
+  ): any;
 }

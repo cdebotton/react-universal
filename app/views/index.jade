@@ -8,6 +8,6 @@ html(lang='en')
     for href in css
       link(rel='stylesheet', href='/build/#{href}')
   body
-    div(id='mount')
+    div(id='mount')!= markup
     for src in js
       script(src='/build/#{src}')

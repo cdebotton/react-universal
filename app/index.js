@@ -31,10 +31,5 @@ if (__DEV__) {
 
 app.use(jade.middleware);
 app.use(renderClient());
-app.use(function* render() {
-  const stats = yield readJSON(paths.dist('webpack-stats.json'));
-  this.body = JSON.stringify(stats, null, 2);
-  // this.render('index', stats);
-});
 
 export default app;

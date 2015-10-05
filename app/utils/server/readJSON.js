@@ -13,7 +13,11 @@ export type WebStats = {
 export default async function readJSON(path: string): Promise {
   try {
     let json = await readFileAsync(path);
-    let data = JSON.parse(json);
+    let data = {
+      css: [],
+      js: [],
+      ...JSON.parse(json),
+    };
 
     return data;
   } catch (ex) {

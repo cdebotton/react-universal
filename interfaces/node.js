@@ -1,15 +1,11 @@
 declare class Koa {
   keys: Array<string>;
-  use(middleware: Function): Function;
+  use(middleware: Function): Generator;
   listen(port:number): void;
 }
 
 declare module koa {
   declare function exports(): Koa;
-}
-
-declare module 'react-dom/server' {
-  declare function render(elem: any): string;
 }
 
 declare module 'koa-jade' {
@@ -68,4 +64,39 @@ type GraphQLConfig = {
 
 declare module 'express-graphql' {
   declare function exports(config: GraphQLConfig): Function;
+}
+
+declare module 'history' {
+  declare function createLocation(path: string): any;
+}
+
+type MatchConfig = {
+  routes: any;
+  location: any;
+}
+
+type MatchError = {
+  message: string;
+}
+
+type RedirectLocation = {
+  pathname: string;
+  search?: string;
+}
+
+declare function MatchCallback(
+  error: ?MatchError,
+  redirectLocation: ?RedirectLocation,
+  renderProps: ?{}
+): void;
+
+declare function RoutingContext(opts: ?{}): ReactComponent;
+
+declare module 'react-router' {
+  declare function match(opts: MatchConfig, callback: MatchCallback): void;
+  declare var RoutingContext: RoutingContext;
+}
+
+declare module 'react-dom/server' {
+  declare function renderToString(context: RoutingContext): string;
 }

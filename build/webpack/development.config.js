@@ -17,6 +17,29 @@ export default {
       ...base.entry.app,
     ],
   },
+  module: {
+    ...base.module,
+    loaders: base.module.loaders.map(loaderConfig => {
+      if (loaderConfig.loader === 'babel') {
+        loaderConfig.queryString = {
+          plugins: ['react-transform'],
+          extra: {
+            'react-transform': {
+              transforms: [{
+                transform: 'react-transform-hmr',
+                imports: ['react'],
+                locals: ['module']
+              }, {
+                transform: 'react-transform-catch-errors',
+                imports: ['react', 'redbox-react']
+              }],
+            },
+          },
+        };
+      }
+      return loaderConfig;
+    }),
+  },
   plugins: [
     ...base.plugins,
     new webpack.HotModuleReplacementPlugin(),

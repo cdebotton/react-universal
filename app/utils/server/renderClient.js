@@ -57,6 +57,10 @@ function getRoutingContext(routes: ?{}, location: {}): Promise {
 export default function renderClient(): Function {
   return function* renderClientMiddleware(next: Generator): Generator {
     if (__DEV__) {
+      Object.keys(require.cache).forEach(key => {
+        delete require.cache[key];
+      });
+
       try {
         ({routes, store} = require(paths.dist('server')));
       } catch (ex) {

@@ -1,21 +1,20 @@
 import express from 'express';
 import webpack from 'webpack';
-import config from '../config/webconfig';
 import webpackConfig from '../webpack.config';
+import {
+  webpackPublicPath,
+} from '../config';
 
 const app = express();
-const paths = config.get('utilsPaths');
-const compiler = webpack(webpackConfig[0]);
+const compiler = webpack(webpackConfig);
 
 app.use(require('webpack-dev-middleware')(compiler, {
-  contentBase: paths.project(config.get('src')),
+  publicPath: webpackPublicPath,
+  overlay: true,
   hot: true,
   quiet: true,
   noInfo: true,
   lazy: false,
-  stats: {
-    colors: true,
-  },
   historyApiFallback: true,
 }));
 

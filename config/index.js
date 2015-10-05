@@ -1,34 +1,113 @@
-import path from 'path';
+import path, { resolve } from 'path';
 import { argv } from 'yargs';
 
-const config = new Map();
+/**********************************************************************
+ * Path Declarations
+ * ---------------------------------
+ * Modify where different portions of your application are stored.
+ **********************************************************************/
 
-config.set('app', 'app');
-config.set('bin', 'bin');
-config.set('data', 'data');
-config.set('dist', 'dist');
+export const BASE_PATH = path.resolve(__dirname, '../');
+export const APP = 'app';
+export const BIN = 'bin';
+export const BUILD = 'build';
+export const DATA = 'data';
+export const DIST = 'dist';
 
-config.set('clientHost', process.env.HOST || 'localhost');
-config.set('clientPort', parseInt(process.env.PORT, 10) || 3000);
-config.set('graphQLPort', parseInt(process.env.GRAPHQL_PORT, 10) || 8080);
+/**********************************************************************
+ * Environmental Variables
+ * ---------------------------------
+ * Get runtime variables passed through the environment and export
+ * them as configuration delcarations.
+ **********************************************************************/
 
-config.set('projectPath', path.resolve(__dirname, '../'));
+export const {
+  NODE_ENV: env = 'development',
+  HOST: host = 'localhost',
+  PORT: port = 3000,
+  GRAPHQL_PORT: graphQLPort = 8080,
+  WEBPACK_PORT: webpackPort = 3001,
+} = process.env;
 
-const paths = (() => {
-  const base = config.get('projectPath');
-  const { resolve } = path;
+/**********************************************************************
+ * Globals
+ * ---------------------------------
+ * Declare global variables for use in webpack bundles.
+ **********************************************************************/
 
-  const project = (...args) => resolve.apply(resolve, [base, ...args]);
+export const globals = {
+  'process.env': {
+    'NODE_ENV': JSON.stringify(env),
+  },
+  'NODE_ENV': env,
+  '__DEV__': env === 'development',
+  '__PROD__': env === 'production',
+  '__DEBUG__': env === 'development' && !argv.no_debug,
+  '__DEBUG_NW__': !!argv.nw,
+};
+
+/**********************************************************************
+ * Webpack Public Paths
+ * ---------------------------------
+ * The path for the client and hot module replacement extensions.
+ **********************************************************************/
+
+export const webpackPublicPath = `http://${host}:${webpackPort}/`;
+export const webpackHmrPath = `http://${host}:${webpackPort}/__webpack_hmr`;
+
+/**********************************************************************
+ * Path Helper
+ * ---------------------------------
+ * Declare a helper for quickly generating paths to key folders
+ * of the application.
+ **********************************************************************/
+
+export const paths = (() => {
+  const base = (...args) => resolve.apply(resolve, [BASE_PATH, ...args]);
 
   return {
-    project,
-    app: project.bind(null, config.get('app')),
-    bin: project.bind(null, config.get('bin')),
-    data: project.bind(null, config.get('data')),
-    dist: project.bind(null, config.get('dist')),
-  };
+    base,
+    app: base.bind(null, APP),
+    bin: base.bind(null, BIN),
+    build: base.bind(null, BUILD),
+    data: base.bind(null, DATA),
+    dist: base.bind(null, DIST),
+  }
 })();
 
-config.set('paths', paths);
+/**********************************************************************
+ * Webpack Aliases
+ * ---------------------------------
+ * Allow for the importing of modules through wepback by way of
+ * shortened absolute paths rather than relative paths.
+ **********************************************************************/
 
-export default config;
+export const aliases = [
+  'actions',
+  'components',
+  'containers',
+  'reducers',
+  'routes',
+  'store',
+  'styles',
+  'utils',
+  'views',
+].reduce((acc, x) => ((acc[x] = paths.app(x)) && acc), {});
+
+/**********************************************************************
+ * Webpack Vendors
+ * ---------------------------------
+ * Modules to load into a separate vendor package.
+ **********************************************************************/
+
+export const vendors = [
+  'history',
+  'immutable',
+  'react',
+  'react-relay',
+  'react-redux',
+  'react-router',
+  'redux',
+  'redux-devtools',
+  'redux-devtools/lib/react',
+];

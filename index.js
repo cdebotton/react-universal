@@ -1,21 +1,18 @@
 require('babel/register');
 
 var createMonitor = require('spawn-monitor').createMonitor;
-var config = require('./config');
-var paths = config.get('paths');
+var paths = require('./config').paths;
 
 createMonitor({
   script: paths.bin('client'),
   key: 'client',
-  rebootOnChange: [
-    paths.project('src'),
-  ],
+  rebootOnChange: [paths.app()],
 });
 
-// createMonitor({
-//   script: './bin/dev-server',
-//   key: 'dev-server',
-// });
+createMonitor({
+  script: './bin/dev-server',
+  key: 'dev-server',
+});
 
 createMonitor({
   script: './bin/flow',

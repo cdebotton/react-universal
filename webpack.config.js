@@ -1,6 +1,9 @@
+var path = require('path');
+
 require('babel/register');
 
-module.exports = [
-  require('./build/webpack/client'),
-  require('./build/webpack/server'),
-];
+var env = require('./config').env;
+
+module.exports = require(
+  path.resolve(__dirname, 'build', 'webpack', env + '.config')
+);

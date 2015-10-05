@@ -1,0 +1,37 @@
+:root {
+  --padding: 2rem;
+}
+
+@custom-selector :--heading h1, h2, h3, h4, h5 h6;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: calc(100vw - (var(--padding) * 2));
+  height: calc(100vh - (var(--padding) * 2));
+  margin: var(--padding);
+  padding: var(--padding);
+  background-color: #3e3e3e;
+  color: #efefef;
+}
+
+.greeting {
+  font-size: 3rem;
+}
+
+:--heading {
+  font-weight: 100;
+};

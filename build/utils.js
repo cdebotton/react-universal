@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import {yellow, green} from 'chalk';
+import {
+  yellow,
+  green,
+} from 'chalk';
+import { paths } from '../config';
 
 function notifyError(error) {
   console.log('\x07' + error);
@@ -33,14 +37,12 @@ export function WriteStatsPlugin() {
     return function() {
       this.plugin('done', (stats) => {
         const json = stats.toJson();
-        let chunks = [
-          ...json.assetsByChunkName.vendor,
-          ...json.assetsByChunkName.app,
-        ];
+        const {
+          vendor,
+          app,
+        } = json.assetsByChunkName;
 
-        if (!Array.isArray(chunks)) {
-          chunks = [chunks];
-        }
+        const chunks = [].concat(vendor, app);
 
         const assets = chunks.filter((chunk) => {
           return ['.js', '.css'].indexOf(path.extname(chunk)) > -1;
@@ -58,7 +60,7 @@ export function WriteStatsPlugin() {
         );
 
         fs.writeFileSync(
-          path.join(__dirname, '..', 'dist', 'webpack-stats.json'),
+          paths.dist('webpack-stats.json'),
           JSON.stringify(assets)
         );
       });

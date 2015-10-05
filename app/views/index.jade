@@ -1,0 +1,8 @@
+doctype
+html(lang='en')
+  head
+    title React Universal
+  body
+    div(id='mount')
+    for src in js
+      script(src='/build/#{src}')

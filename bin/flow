@@ -1,22 +1,24 @@
-#!/usr/bin/env node_modules/.bin/babel-node
+// #!/usr/bin/env node_modules/.bin/babel-node
 
-import { Gaze } from 'gaze';
 import path from 'path';
+import { Gaze } from 'gaze';
 import { spawn } from 'pty.js';
-import config from '../config';
+import { paths } from '../config';
 
 const gaze = new Gaze();
-const paths = config.get('paths');
-const server = spawn('flow');
+const server = spawn('flow', ['server']);
 
-server.on('data', data => process.stdout.write(data));
+server.on('data', data => {
+  if (/server\sis\sready/i.test(data)) {
+    console.log('Flow is running.');
+  }
+});
 
-function flowCheck() {
-  const check = spawn('flow', ['check'])
-  check.on('data', data => process.stdout.write(data));
-}
+gaze.add(paths.data('**', '*.js'));
+gaze.add(paths.app('**', '*.js'));
 
-gaze.add(path.join(paths.project('data'), '**', '*.js'));
-gaze.add(path.join(paths.project('app'), '**', '*.js'));
 gaze.on('ready', () => 'Flow watcher ready.');
-gaze.on('all', flowCheck);
+gaze.on('all', (eventType, file) => spawn('flow').on('data', x => {
+  const path = file.replace(paths.base(), '');
+  process.stdout.write(`[CHANGED] ${path}: ${x}`);
+}));

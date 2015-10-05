@@ -8,6 +8,7 @@ import mount from 'koa-mount';
 import serve from 'koa-static';
 import Jade from 'koa-jade';
 import readJSON from './utils/server/readJSON';
+import renderClient from './utils/server/renderClient';
 
 import {
   globals,
@@ -15,12 +16,8 @@ import {
   webpackPublicPath,
 } from '../config';
 
-import {
-  routes,
-  store,
-} from '../dist/server';
-
 const __DEV__ = globals.__DEV__;
+const __PROD__ = globals.__PROD__;
 const app = koa();
 const jade = new Jade({ viewPath: path.join(__dirname, 'views') });
 
@@ -33,6 +30,7 @@ if (__DEV__) {
 }
 
 app.use(jade.middleware);
+app.use(renderClient());
 app.use(function* render() {
   const stats = yield readJSON(paths.dist('webpack-stats.json'));
   this.body = JSON.stringify(stats, null, 2);

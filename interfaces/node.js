@@ -49,3 +49,23 @@ declare module 'koa-static' {
 declare module 'koa-compress' {
   declare function exports(): Function;
 }
+
+declare class Express {
+  keys: Array<string>;
+  use(middleware: Function): Function;
+  listen(port:number): void;
+}
+
+declare module express {
+  declare function exports(): Express;
+}
+
+type GraphQLConfig = {
+  schema: {};
+  pretty?: boolean;
+  rootValue?: {};
+};
+
+declare module 'express-graphql' {
+  declare function exports(config: GraphQLConfig): Function;
+}

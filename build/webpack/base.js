@@ -21,7 +21,7 @@ const commonChunkPlugin = new webpack.optimize.CommonsChunkPlugin(
 );
 commonChunkPlugin.__KARMA_IGNORE__ = true;
 
-const cssIdentName = __PROD__ ?
+export const cssIdentName = __PROD__ ?
   '[hash:base64:16]' :
   '[name]__[local]___[hash:base64:5]';
 

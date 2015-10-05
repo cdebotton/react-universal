@@ -15,11 +15,14 @@ import {
   webpackPublicPath,
 } from '../config';
 
+import {
+  routes,
+  store,
+} from '../dist/server';
+
 const __DEV__ = globals.__DEV__;
 const app = koa();
-const jade = new Jade({
-  viewPath: path.join(__dirname, 'views'),
-});
+const jade = new Jade({ viewPath: path.join(__dirname, 'views') });
 
 app.use(compress());
 
@@ -32,8 +35,8 @@ if (__DEV__) {
 app.use(jade.middleware);
 app.use(function* render() {
   const stats = yield readJSON(paths.dist('webpack-stats.json'));
-
-  this.render('index', stats);
+  this.body = JSON.stringify(stats, null, 2);
+  // this.render('index', stats);
 });
 
 export default app;

@@ -1,12 +1,31 @@
 #!/usr/bin/env node_modules/.bin/babel-node
 
-import app from '../build';
+import {
+  client,
+  server,
+} from '../build';
+
 import {
   host,
   webpackPort as port,
 } from '../config';
 
-app.listen(port, host, () => {
+server.watch({
+  noInfo: true,
+  quiet: true,
+  stats: { colors: true },
+}, (err, stats) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(stats.toString({
+      colors: true,
+      chunks: false,
+    }));
+  }
+});
+
+client.listen(port, host, () => {
   console.log('Dev Server is running at http://%s:%s',
     host,
     port

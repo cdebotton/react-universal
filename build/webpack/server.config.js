@@ -1,56 +1,30 @@
 import webpack from 'webpack';
 import fs from 'fs';
-import config from '../../config/webconfig';
+import base, { cssIdentName } from './base';
+import { paths } from '../../config';
 
-const paths = config.get('utilsPaths');
-const { __PROD__ } = config.get('globals');
-const cssIdentName = __PROD__ ?
-  '[hash:base64:16]' :
-  '[name]__[local]___[hash:base64:5]';
-
-const webpackConfig = {
+export default {
+  ...base,
   name: 'server',
   target: 'node',
-  entry: {
-    app: [
-      paths.src('entry-points/server'),
-    ],
-  },
   externals: fs.readdirSync('node_modules').filter(x => x !== '.bin'),
+  entry: paths.app('entryPoints/server'),
   output: {
     filename: 'index.js',
     path: paths.dist('server'),
     libraryTarget: 'commonjs2',
   },
-  plugins: [
-    new webpack.DefinePlugin(Object.assign(config.get('globals'), {
-      __SERVER__: true,
-      __CLIENT__: false,
-    })),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-  ],
-  resolve: {
-    extensions: ['', '.js'],
-    alias: config.get('utilsAliases'),
-  },
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        include: paths.project(config.get('src')),
-        loaders: ['eslint'],
-      },
-    ],
     loaders: [
-      {
-        test: /\.js$/,
-        include: paths.project(config.get('src')),
-        loaders: ['babel?optional[]=runtime&stage=0'],
-      },
+      ...base.module.loaders.filter(loaderConfig => {
+        if (/\.js/.test(loaderConfig.test)) {
+          return true;
+        }
+        return false;
+      }),
       {
         test: /\.css$/,
-        include: paths.project(config.get('src')),
+        include: paths.app('components'),
         loaders: [
           'css/locals?modules&localIdentName=' + cssIdentName,
           'cssnext',
@@ -58,17 +32,13 @@ const webpackConfig = {
       },
       {
         test: /\.css$/,
-        include: paths.project('node_modules'),
-        loaders: [
-          'css',
-        ],
+        include: paths.base('node_modules'),
+        loaders: ['css/locals'],
       },
     ],
   },
-  eslint: {
-    configFile: paths.project('.eslintrc'),
-    failOnError: __PROD__,
-  }
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+  ],
 };
-
-export default webpackConfig;

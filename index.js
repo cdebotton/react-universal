@@ -3,7 +3,7 @@ require('babel/register');
 var createMonitor = require('spawn-monitor').createMonitor;
 var config = require('./config');
 var paths = config.paths;
-var __DEV__ = config.__DEV__;
+var __DEV__ = config.globals.__DEV__;
 
 createMonitor({
   script: paths.bin('client'),

@@ -76,7 +76,7 @@ export default {
       },
       {
         test: /\.css$/,
-        include: paths.app(),
+        exclude: /node_modules/,
         loaders: [
           'style',
           `css?modules&localIdentName=${cssIdentName}`,

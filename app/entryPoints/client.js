@@ -13,8 +13,8 @@ const store = configureStore();
 
 render((
   <Provider store={store}>
-    <Router history={history}>
-      {routes}
-    </Router>
+    <Router
+      history={history}
+      children={routes} />
   </Provider>
 ), document.getElementById('mount'));

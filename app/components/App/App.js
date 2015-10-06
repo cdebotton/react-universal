@@ -11,6 +11,10 @@ export default class App extends React.Component {
     children: PropTypes.any,
   };
 
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  };
+
   render() {
     return (
       <div styleName="container">

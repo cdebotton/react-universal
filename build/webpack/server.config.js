@@ -24,7 +24,7 @@ export default {
       }),
       {
         test: /\.css$/,
-        include: paths.app('components'),
+        exclude: /node_modules/,
         loaders: [
           'css/locals?modules&localIdentName=' + cssIdentName,
           'cssnext',

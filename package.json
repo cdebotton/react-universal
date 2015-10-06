@@ -73,7 +73,7 @@
     "mocha": "^2.2.5",
     "nib": "^1.1.0",
     "open": "0.0.5",
-    "pty.js": "^0.2.13",
+    "pty.js": "^0.3.0",
     "react-hot-loader": "^1.2.8",
     "redux-devtools": "^1.0.2",
     "redux-thunk": "^0.1.0",

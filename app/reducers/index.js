@@ -1,3 +1,5 @@
-export default function() {
+/* @flow */
 
-}
+import app from './app';
+
+exports.app = app;

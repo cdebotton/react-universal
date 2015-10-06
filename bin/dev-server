@@ -8,7 +8,10 @@ import {
 import {
   host,
   webpackPort as port,
+  globals,
 } from '../config';
+
+const __DEV__ = globals.__DEV__;
 
 server.watch({
   noInfo: true,
@@ -18,10 +21,14 @@ server.watch({
   if (err) {
     console.error(err);
   } else {
-    console.log(stats.toString({
-      colors: true,
-      chunks: false,
-    }));
+    if (__DEV__) {
+      console.log('Compiled server with Webpack');
+    } else {
+      console.log(stats.toJson({
+        color: true,
+        allChunks: false,
+      }))
+    }
   }
 });
 

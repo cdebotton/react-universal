@@ -1,4 +1,7 @@
-import { GraphQLSchema } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLSchema,
+} from 'graphql';
 import { nodeDefinitions } from 'graphql-relay';
 import rootQuery from './rootQueryField';
 import rootMutation from './rootMutationField';
@@ -23,9 +26,21 @@ const {
 );
 
 let refs = Object.keys(refCreators).reduce((acc, x) => {
+  let ref: ?{};
+
   if (typeof refCreators[x] === 'function') {
-    acc[x] = refCreators[x](acc);
+    ref = refCreators[x](acc);
   }
+
+  if (ref instanceof GraphQLObjectType) {
+    acc[x] = ref;
+  }
+
+  const { type, connectionType, edgeType } = ref;
+
+  type && acc[x] = type;
+  connectionType && acc[x + 'Connection'] = connectionType;
+  edgeType && acc[x + 'Edge'] = edgeType;
 
   return acc;
 }, { nodeInterface, nodeField });

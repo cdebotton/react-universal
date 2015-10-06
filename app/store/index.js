@@ -13,7 +13,7 @@ if (__DEBUG__) {
   createStoreWithMiddleware = createStore;
 }
 
-export function configureStore(initialState: ?{}): ReduxStore {
+export function configureStore(initialState: ?{}): Function {
   if (!createStoreWithMiddleware) {
     throw new Error('No store creator configured.');
   }
@@ -28,4 +28,4 @@ export function configureStore(initialState: ?{}): ReduxStore {
   }
 
   return store;
-};
+}

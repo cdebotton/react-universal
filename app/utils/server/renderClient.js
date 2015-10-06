@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { Provider } from 'react-redux';
 import { createLocation } from 'history';
 import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
@@ -32,10 +33,10 @@ const __DEV__ = globals.__DEV__;
 const __PROD__ = globals.__PROD__;
 
 let routes: ?{};
-let store: ?{};
+let configureStore: ?Function;
 
 if (__PROD__) {
-  ({routes, store} = require(paths.dist('server')));
+  ({routes, configureStore} = require(paths.dist('server')));
 }
 
 function getRoutingContext(routes: ?{}, location: {}): Promise {
@@ -62,16 +63,23 @@ export default function renderClient(): Function {
       });
 
       try {
-        ({routes, store} = require(paths.dist('server')));
+        ({routes, configureStore} = require(paths.dist('server')));
       } catch (ex) {
         routes = null;
-        store = null;
+        configureStore = null;
         throw ex;
       }
     }
 
     const location = createLocation(this.req.url);
     const result = yield getRoutingContext(routes, location);
+
+    if (!(routes && configureStore)) {
+      throw new Error(
+        'App has not compiled yet. Either {routes} ' +
+        'or {configureStore} is unavailable.'
+      );
+    }
 
     if (result && result.errorType) {
       switch (result.errorType) {
@@ -94,7 +102,12 @@ export default function renderClient(): Function {
     } else {
       if (result) {
         const stats = yield readJSON(paths.dist('webpack-stats.json'));
-        const markup = renderToString(<RoutingContext {...result} />);
+        const store = configureStore();
+        const markup = renderToString(
+          <Provider store={store}>
+            <RoutingContext {...result} />
+          </Provider>
+        );
 
         this.render('index', { ...stats, markup });
       }

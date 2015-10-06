@@ -115,13 +115,9 @@ declare module 'react-dom' {
   ): any;
 }
 
-declare class ReduxStore {
-  replaceReducer(reducer: Function): Function
-}
-
 declare module 'redux' {
   declare function compose(...middleware: Array<Function>): Function;
-  declare function createStore(rootReducer: Function, initialState: ?{}): ReduxStore;
+  declare function createStore(rootReducer: Function, initialState: ?{}): Function;
 }
 
 declare module 'redux-devtools' {
@@ -130,4 +126,8 @@ declare module 'redux-devtools' {
 
 declare module 'redux-thunk' {
   declare function exports(): Function;
+}
+
+declare module 'react-redux' {
+  declare var Provider: Function;
 }

@@ -4,7 +4,10 @@ import {
   yellow,
   green,
 } from 'chalk';
-import { paths } from '../config';
+import { paths, globals } from '../config';
+
+const __DEV__ = globals.__DEV__;
+const __PROD__ = globals.__PROD__;
 
 function notifyError(error) {
   console.log('\x07' + error);
@@ -17,6 +20,11 @@ function notifyWarning(warning) {
 export function ReportStatsPlugin() {
   return function() {
     this.plugin('done', (stats) => {
+      if (__DEV__) {
+        console.log('Compiled client with Webpack');
+        return;
+      }
+
       const json = stats.toJson();
 
       if (json.errors.length > 0) {
@@ -54,10 +62,12 @@ export function WriteStatsPlugin() {
           return memo;
         }, {});
 
-        console.log(
-          green('Wrote webpack-stats.json:'),
-          JSON.stringify(assets, null, 2)
-        );
+        if (__PROD__) {
+          console.log(
+            green('Wrote webpack-stats.json:'),
+            JSON.stringify(assets, null, 2)
+          );
+        }
 
         fs.writeFileSync(
           paths.dist('webpack-stats.json'),

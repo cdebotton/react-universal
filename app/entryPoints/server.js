@@ -1,2 +1,2 @@
 export routes from '../routes';
-export store from '../store';
+export { configureStore } from '../store';

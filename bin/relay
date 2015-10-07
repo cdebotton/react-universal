@@ -1,0 +1,8 @@
+#!/usr/bin/env node_modules/.bin/babel-node
+
+import { Gaze } from 'gaze';
+import { paths } from '../config';
+
+const gaze = new Gaze();
+
+gaze.add(paths.data());

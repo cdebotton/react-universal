@@ -2,3 +2,4 @@ node_modules
 interfaces
 public
 dist
+./index.js

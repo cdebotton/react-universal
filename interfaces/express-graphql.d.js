@@ -4,6 +4,8 @@ type GraphQLConfig = {
   rootValue?: {};
 };
 
+declare function GraphQLConfigFn(request: ?{}): GraphQLConfig;
+
 declare module 'express-graphql' {
-  declare function exports(config: GraphQLConfig): Function;
+  declare function exports(config: GraphQLConfig | GraphQLConfigFn): Function;
 }

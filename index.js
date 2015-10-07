@@ -21,11 +21,6 @@ if (__DEV__) {
     script: './bin/dev-server',
     key: 'dev-server',
   });
-
-  createMonitor({
-    script: './bin/flow',
-    key: 'flow',
-  });
 }
 
 // createMonitor({

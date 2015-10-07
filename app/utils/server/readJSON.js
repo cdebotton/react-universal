@@ -3,7 +3,7 @@
 import fs from 'fs';
 import thenify from 'thenify';
 
-const readFileAsync = thenify(fs.readFile);
+const readFileAsync: Function = thenify(fs.readFile);
 
 export type WebStats = {
   css: Array<string>;
@@ -12,8 +12,8 @@ export type WebStats = {
 
 export default async function readJSON(path: string): Promise {
   try {
-    let json = await readFileAsync(path);
-    let data = {
+    const json: string = await readFileAsync(path);
+    const data: WebStats = {
       css: [],
       js: [],
       ...JSON.parse(json),

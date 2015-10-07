@@ -1,5 +1,4 @@
 import webpack from 'webpack';
-import path from 'path';
 import Clean from 'clean-webpack-plugin';
 
 import {
@@ -14,7 +13,7 @@ import {
   WriteStatsPlugin,
 } from '../utils';
 
-const { __PROD__, __DEV__ } = globals;
+const { __PROD__ } = globals;
 
 const commonChunkPlugin = new webpack.optimize.CommonsChunkPlugin(
   'vendor', '[name].[hash].js'
@@ -42,13 +41,6 @@ export default {
     alias: aliases,
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint',
-      }
-    ],
     loaders: [
       {
         test: /\.json$/,
@@ -57,7 +49,8 @@ export default {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url?name=fonts/[name].[ext]&limit=10000&minetype=application/font-woff',
+        loader: 'url?name=fonts/[name].[ext]'
+          + '&limit=10000&minetype=application/font-woff',
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,

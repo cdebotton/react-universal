@@ -2,7 +2,21 @@
 
 import { Gaze } from 'gaze';
 import { paths } from '../config';
+import { spawn } from 'pty.js';
 
-const gaze = new Gaze();
+const gaze = new Gaze(paths.data('schema', '**', '*.js'));
+const compile = (changed) => new Promise((resolve, reject) => {
+  console.log('[SCHEMA CHANGED] %s', changed);
+  spawn('../scripts/relay')
+  .on('data', console.log.bind(console))
+  .on('end', () => {
+    console.log('[SCHEMA COMPILED] %s', changed);
+    resolve(changed);
+  });
+  setTimeout(reject, 5 * 60 * 1000);
+});
 
-gaze.add(paths.data());
+gaze.on('all', (event, filename) => {
+  const changed = filename.replace(paths.data('schema') + '/', '');
+  compile(changed);
+});

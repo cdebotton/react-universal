@@ -1,5 +1,7 @@
 node_modules
-interfaces
-public
-dist
+./interfaces
+./public
+./dist
+./scripts
+./bin
 ./index.js

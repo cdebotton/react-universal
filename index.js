@@ -23,10 +23,10 @@ if (__DEV__) {
   });
 }
 
-// createMonitor({
-//   script: './bin/graphiql',
-//   key: 'graphiql',
-// });
+createMonitor({
+  script: './bin/relay',
+  key: 'relay',
+});
 
 // createMonitor({
 //   script: './bin/test',

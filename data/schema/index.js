@@ -34,6 +34,11 @@ const refs = Object.keys(refCreators).reduce((acc, key) => {
 
   if (ref instanceof GraphQLObjectType) {
     acc[key] = ref;
+    return acc;
+  }
+
+  if (!ref) {
+    return acc;
   }
 
   const { type, connectionType, edgeType } = ref;

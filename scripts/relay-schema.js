@@ -12,9 +12,10 @@ import { Schema } from '../data/schema';
   const result = await graphql(Schema, introspectionQuery);
 
   if (result.errors) {
-    console.error(`Error: ${JSON.stringify(result.errors, null, 2)}`);
+    console.error(`Relay Error: ${JSON.stringify(result.errors, null, 2)}`);
   } else {
     const target = path.join(__dirname, '..', 'dist', 'server', 'schema.json');
     fs.writeFileSync(target, JSON.stringify(result, null, 2));
+    console.log(`Success: ${JSON.stringify(result.errors, null, 2)}`);
   }
 })();

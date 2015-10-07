@@ -27,7 +27,7 @@ server.watch({
       console.log(stats.toJson({
         color: true,
         allChunks: false,
-      }))
+      }));
     }
   }
 });

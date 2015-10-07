@@ -17,30 +17,38 @@ const {
   nodeInterface,
   nodeField,
 } = nodeDefinitions(
-  (globalId) => {
+  () => {
 
   },
-  (object) => {
+  () => {
 
   },
 );
 
-let refs = Object.keys(refCreators).reduce((acc, x) => {
+const refs = Object.keys(refCreators).reduce((acc, key) => {
   let ref: ?{};
 
-  if (typeof refCreators[x] === 'function') {
-    ref = refCreators[x](acc);
+  if (typeof refCreators[key] === 'function') {
+    ref = refCreators[key](acc);
   }
 
   if (ref instanceof GraphQLObjectType) {
-    acc[x] = ref;
+    acc[key] = ref;
   }
 
   const { type, connectionType, edgeType } = ref;
 
-  type && acc[x] = type;
-  connectionType && acc[x + 'Connection'] = connectionType;
-  edgeType && acc[x + 'Edge'] = edgeType;
+  if (type) {
+    acc[key] = type;
+  }
+
+  if (connectionType) {
+    acc[key + 'Connection'] = connectionType;
+  }
+
+  if (edgeType) {
+    acc[key + 'Edge'] = edgeType;
+  }
 
   return acc;
 }, { nodeInterface, nodeField });

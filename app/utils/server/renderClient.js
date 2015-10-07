@@ -4,30 +4,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createLocation } from 'history';
 import { renderToString } from 'react-dom/server';
-import { RoutingContext, match } from 'react-router';
+import { RoutingContext } from 'react-router';
+import { getRoutingContext, RouterResult } from './getRoutingContext';
 import readJSON from './readJSON';
 
 import {
   paths,
   globals,
 } from '../../../config';
-
-const RouterResult = {
-  NOT_FOUND: 'notFound',
-  ERROR: 'error',
-  REDIRECT: 'redirect',
-};
-
-type ContextError = {
-  errorType?: string;
-  error?: {
-    message: string;
-  };
-  redirectLocation?: {
-    pathname: string;
-    search?: string;
-  };
-};
 
 const __DEV__ = globals.__DEV__;
 const __PROD__ = globals.__PROD__;
@@ -39,24 +23,8 @@ if (__PROD__) {
   ({routes, configureStore} = require(paths.dist('server')));
 }
 
-function getRoutingContext(routes: ?{}, location: {}): Promise {
-  return new Promise((resolve, reject) => {
-    match({ routes, location }, (error, redirectLocation, renderProps) => {
-      if (redirectLocation) {
-        reject({ errorType: RouterResult.REDIRECT, redirectLocation });
-      } else if (error) {
-        reject({ errorType: RouterResult.ERROR, error });
-      } else if (typeof renderProps === 'undefined') {
-        reject({ errorType: RouterResult.NOT_FOUND });
-      } else {
-        resolve(renderProps);
-      }
-    });
-  });
-}
-
 export default function renderClient(): Function {
-  return function* renderClientMiddleware(next: Generator): Generator {
+  return function* renderClientMiddleware() {
     if (__DEV__) {
       Object.keys(require.cache).forEach(key => {
         delete require.cache[key];
@@ -112,5 +80,5 @@ export default function renderClient(): Function {
         this.render('index', { ...stats, markup });
       }
     }
-  }
+  };
 }

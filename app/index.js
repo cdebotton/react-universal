@@ -7,7 +7,6 @@ import proxy from 'koa-proxy';
 import mount from 'koa-mount';
 import serve from 'koa-static';
 import Jade from 'koa-jade';
-import readJSON from './utils/server/readJSON';
 import renderClient from './utils/server/renderClient';
 
 import {
@@ -17,7 +16,6 @@ import {
 } from '../config';
 
 const __DEV__ = globals.__DEV__;
-const __PROD__ = globals.__PROD__;
 const app = koa();
 const jade = new Jade({ viewPath: path.join(__dirname, 'views') });
 

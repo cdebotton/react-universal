@@ -9,10 +9,6 @@ declare module 'redux' {
   declare function createStore(rootReducer: Function, initialState: ?{}): Function;
 }
 
-declare module 'redux-devtools' {
-  declare function devTools(): Function;
-}
-
 declare module 'redux-thunk' {
   declare function exports(): Function;
 }

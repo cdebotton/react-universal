@@ -4,8 +4,10 @@
   "description": "A universal, type checked, linted, graphql backed, starter-kit with react, redux, and react-router.",
   "main": "index.js",
   "scripts": {
+    "prebuild": "npm run relay -s",
     "build": "NODE_ENV=production `npm bin`/webpack",
-    "prestart": "npm run build -s",
+    "relay": "./scripts/relay-schema.js",
+    "prestart": "npm run relay -s && npm run build -s",
     "start": "./scripts/start",
     "stop": "./scripts/stop",
     "poststop": "rm -rf ./dist/*",

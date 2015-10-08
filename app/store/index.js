@@ -18,20 +18,17 @@ import * as reducers from '../reducers';
 let createStoreWithMiddleware: ?Function;
 let rootReducer: ?Function;
 
-if (__DEBUG__ && __CLIENT__) {
-  createStoreWithMiddleware = compose(
-    devTools(),
-    applyMiddleware(thunk),
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-  )(createStore);
-} else {
-  createStoreWithMiddleware = createStore;
-}
-
 export function configureStore(initialState: ?{}): Function {
-  if (!createStoreWithMiddleware) {
-    throw new Error('No store creator configured.');
+  if (__DEBUG__ && __CLIENT__) {
+    createStoreWithMiddleware = compose(
+      devTools(),
+      applyMiddleware(thunk),
+      persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+    )(createStore);
+  } else {
+    createStoreWithMiddleware = createStore;
   }
+
   rootReducer = combineReducers(reducers);
   const store = createStoreWithMiddleware(rootReducer, initialState);
 

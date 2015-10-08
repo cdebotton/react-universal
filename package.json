@@ -50,6 +50,7 @@
     "redux": "^3.0.2",
     "redux-devtools": "^2.1.5",
     "redux-form": "^2.1.0",
+    "redux-router": "^1.0.0-beta3",
     "redux-thunk": "^1.0.0",
     "spawn-monitor": "^1.1.5",
     "thenify": "^3.1.0",

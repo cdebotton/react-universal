@@ -10,10 +10,7 @@ import routes from '../routes';
 
 const history = createBrowserHistory();
 const store = configureStore();
-
-let DebugPanel: ?Function;
-let LogMonitor: ?Function;
-let DevTools: ?Function;
+let createDevToolsWindow: ?Function;
 
 render((
   <Provider store={store}>
@@ -23,22 +20,7 @@ render((
   </Provider>
 ), document.getElementById('mount'));
 
-if (__DEV__) {
-  ({
-    DevTools,
-    DebugPanel,
-    LogMonitor,
-  } = require('redux-devtools/lib/react'));
-
-  const devNode = document.createElement('div');
-  document.body.appendChild(devNode);
-
-  render((
-    <DebugPanel top right bottom>
-      <DevTools
-        store={store}
-        monitor={LogMonitor}
-        select={(state) => state} />
-    </DebugPanel>
-  ), devNode);
+if (__DEV__ && __CLIENT__) {
+  ({ createDevToolsWindow } = require('../utils/client/devTools'));
+  createDevToolsWindow(store);
 }

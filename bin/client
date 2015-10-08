@@ -1,0 +1,14 @@
+#!/usr/bin/env node_modules/.bin/babel-node
+
+import app from '../app';
+import {
+  host,
+  port,
+} from '../config';
+
+app.listen(port, host, () => {
+  console.log('Client running at http://%s:%s',
+    host,
+    port
+  );
+});

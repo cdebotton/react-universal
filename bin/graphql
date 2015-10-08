@@ -1,0 +1,14 @@
+#!/usr/bin/env node_modules/.bin/babel-node
+
+import app from '../data';
+import {
+  host,
+  graphQLPort as port,
+} from '../config';
+
+app.listen(port, () => {
+  console.log('GraphQL is running at http://%s:%s',
+    host,
+    port
+  );
+});

@@ -1,0 +1,11 @@
+.container {
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.container :global(.fa) {
+  font-size: 4rem;
+  cursor: pointer;
+}

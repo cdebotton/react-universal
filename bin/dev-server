@@ -1,0 +1,40 @@
+#!/usr/bin/env node_modules/.bin/babel-node
+
+import {
+  client,
+  server,
+} from '../build';
+
+import {
+  host,
+  webpackPort as port,
+  globals,
+} from '../config';
+
+const __DEV__ = globals.__DEV__;
+
+server.watch({
+  noInfo: true,
+  quiet: true,
+  stats: { colors: true },
+}, (err, stats) => {
+  if (err) {
+    console.error(err);
+  } else {
+    if (__DEV__) {
+      console.log('Compiled server with Webpack');
+    } else {
+      console.log(stats.toJson({
+        color: true,
+        allChunks: false,
+      }));
+    }
+  }
+});
+
+client.listen(port, host, () => {
+  console.log('Dev Server is running at http://%s:%s',
+    host,
+    port
+  );
+});

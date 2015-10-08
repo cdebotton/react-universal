@@ -1,5 +1,12 @@
 {
-  "extends": "eslint-config-airbnb",
+  "extends": "airbnb",
+  "globals": {
+    "__DEV__": false,
+    "__PROD__": false,
+    "__DEBUG__": false,
+    "__CLIENT__": false,
+    "__SERVER__": false,
+  },
   "env": {
     "browser": true,
     "mocha": true,

@@ -1,5 +1,7 @@
-./webpack.config.js
-./data/migrations
-**/node_modules/
-public
-build
+node_modules
+./interfaces
+./public
+./dist
+./scripts
+./bin
+./index.js

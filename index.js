@@ -1,6 +1,34 @@
-require('babel/register')({
-  stage: 0,
-  loose: ['all'],
+require('babel/register');
+
+var createMonitor = require('spawn-monitor').createMonitor;
+var config = require('./config');
+var paths = config.paths;
+var __DEV__ = config.globals.__DEV__;
+
+createMonitor({
+  script: paths.bin('client'),
+  key: 'client',
+  rebootOnChange: [paths.app()],
 });
 
-require('./src/server');
+createMonitor({
+  script: './bin/graphql',
+  key: 'graphql',
+});
+
+if (__DEV__) {
+  createMonitor({
+    script: './bin/dev-server',
+    key: 'dev-server',
+  });
+}
+
+createMonitor({
+  script: './bin/relay',
+  key: 'relay',
+});
+
+// createMonitor({
+//   script: './bin/test',
+//   key: 'test',
+// });

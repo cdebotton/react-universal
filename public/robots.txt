@@ -1,2 +1,2 @@
-User-agent: *
-Disallow: /build/
+User-Agent: *
+Disallow:

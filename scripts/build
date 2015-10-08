@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-NODE_ENV=server \
-  `npm bin`/webpack
-
-NODE_ENV=production \
-  `npm bin`/webpack

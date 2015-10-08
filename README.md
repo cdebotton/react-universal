@@ -1,24 +1,30 @@
-# React Universal
+# react-universal
 
-## About
+A `react` starter kit that handles universal rendering as well as a bunch of another neat things. This is sort of a living spec for how I build web applications.
 
-A starter kit for creating universal React applications that is built on:
+## Already implemented
 
-1. React
-2. React Router
-3. Redux + Redux DevTools <3
-4. Relay (Installed, not yet implemented)*
-5. Sequelize + GraphQL
+1. `babel`, because ES2015+ all the things.
+2. `react`, clearly.
+3. `react-router` for routing on the client and server.
+4. `redux`, `react-redux`, `redux-devtools`, and `redux-thunk` for state management.
+5. `koa` for the client server.
+6. `express` for the `graphql` and dev server.
+7. `graphql`, `graphql-relay` for building a backend.
+8. `flow` type checking. I use `atom` with `nuclide`, but you can run flow by typing `flow` int he root of the repository.
+9. `eslint` with the `airbnb` config plus some slight tweaks, like with flow, I'm linting using `atom` & `nuclide`, but you can simply run eslint (`./node_modules/.bin/eslint`) at the root of the repository
 
-It also comes with a custom simple devmode that provides a terminal interface in which you can toggle tabs and view the different build processes.
 
-## About Relay
-Relay is installed in the application and the schema files exist, but the public release of Relay does not yet support universal Javascript. Of course, you're free to rip out the universal rendering in the server file.
+## Not yet implemented
 
-![Terminal Shot](./docs/assets/term.png)
+1. `react-relay`, though the tools are included to get started with Relay, including the `graphql` backend, I've decided to not include the start of a Relay based front end until server-side rendering hooks are exposed [[Provide hooks for server-side rendering #136](https://github.com/facebook/relay/issues/136)].
 
-## Usage
+2. A `database`, still deciding whether to push forward with Neo4j or use `Sequelize` + Postgres.
 
-1. To run in dev mode, `npm run devmode`
-2. To start the production server, `npm start`
-3. To stop the production server,`npm stop`
+3. Testing, I plan on adding `karma`, `mocha`, `sinon`, and `chai`.
+
+## Where'd the terminal ui go?
+
+It felt pretty garish, and was very heavy, so I opted to remove it for a cleaner output.
+
+![Terminal](./docs/term.png)

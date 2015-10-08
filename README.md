@@ -17,7 +17,7 @@ A `react` starter kit that handles universal rendering as well as a bunch of ano
 
 ## Not yet implemented
 
-1. `react-relay`, though the tools are included to get started with Relay, including the `graphql` backend, I've decided to not include the start of a Relay based front end until server-side rendering hooks are exposed [[Provide hooks for server-side rendering #136](https://github.com/facebook/relay/issues/136)].
+1. `react-relay`, though the tools are included to get started with Relay, including the `graphql` backend, I've decided to not include the start of a Relay based front end until server-side rendering hooks are exposed [[facebook/relay#136](https://github.com/facebook/relay/issues/136)].
 
 2. A `database`, still deciding whether to push forward with Neo4j or use `Sequelize` + Postgres.
 

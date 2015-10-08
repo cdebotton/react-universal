@@ -10,6 +10,3 @@ logs
 
 dist/*
 !dist/.gitkeep
-
-public/*
-!public/.gitkeep

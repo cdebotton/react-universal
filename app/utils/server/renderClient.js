@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createLocation } from 'history';
+import { createMemoryHistory } from 'history';
 import { renderToString } from 'react-dom/server';
 import { RoutingContext } from 'react-router';
 import { getRoutingContext, RouterResult } from './getRoutingContext';
@@ -39,7 +39,7 @@ export default function renderClient(): Function {
       }
     }
 
-    const location = createLocation(this.req.url);
+    const location = createMemoryHistory().createLocation(this.req.url);
     const result = yield getRoutingContext(routes, location);
 
     if (!(routes && configureStore)) {

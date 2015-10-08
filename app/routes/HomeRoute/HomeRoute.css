@@ -7,4 +7,5 @@
 
 .container :global(.fa) {
   font-size: 4rem;
+  cursor: pointer;
 }

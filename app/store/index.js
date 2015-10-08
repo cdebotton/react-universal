@@ -3,7 +3,6 @@
 import {
   compose,
   createStore,
-  combineReducers,
   applyMiddleware,
 } from 'redux';
 
@@ -13,10 +12,9 @@ import {
 } from 'redux-devtools';
 
 import thunk from 'redux-thunk';
-import * as reducers from '../reducers';
+import rootReducer from '../reducers';
 
 let createStoreWithMiddleware: ?Function;
-let rootReducer: ?Function;
 
 export function configureStore(initialState: ?{}): Function {
   if (__DEBUG__ && __CLIENT__) {
@@ -29,12 +27,11 @@ export function configureStore(initialState: ?{}): Function {
     createStoreWithMiddleware = createStore;
   }
 
-  rootReducer = combineReducers(reducers);
   const store = createStoreWithMiddleware(rootReducer, initialState);
 
   if (module.hot) {
     module.hot.accept('../reducers/index', () => {
-      const nextRootReducer = combineReducers(require('../reducers/index'));
+      const nextRootReducer = require('../reducers/index');
       store.replaceReducer(nextRootReducer);
     });
   }

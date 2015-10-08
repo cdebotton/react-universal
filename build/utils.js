@@ -1,3 +1,5 @@
+/* @flow */
+
 import fs from 'fs';
 import path from 'path';
 import { green } from 'chalk';
@@ -6,16 +8,16 @@ import { paths, globals } from '../config';
 const __DEV__ = globals.__DEV__;
 const __PROD__ = globals.__PROD__;
 
-function notifyError(error) {
+function notifyError(error: string & Error): void {
   console.log('\x07' + error);
 }
 
-function notifyWarning(warning) {
+function notifyWarning(warning: string & Error): void {
   console.log(warning);
 }
 
-export function ReportStatsPlugin() {
-  return function reportStats() {
+export function ReportStatsPlugin(): Function {
+  return function reportStats(): void {
     this.plugin('done', (stats) => {
       if (__DEV__) {
         console.log('Compiled client with Webpack');
@@ -38,14 +40,12 @@ export function ReportStatsPlugin() {
   };
 }
 
-export function WriteStatsPlugin() {
-  return function writeStats() {
+export function WriteStatsPlugin(): Function {
+  return function writeStats(): void {
     this.plugin('done', (stats) => {
       const json = stats.toJson();
-      const {
-        vendor,
-        app,
-      } = json.assetsByChunkName;
+      const app = json.assetsByChunkName.json;
+      const vendor = json.assetsByChunkName.vendor;
 
       const chunks = [].concat(vendor, app);
 

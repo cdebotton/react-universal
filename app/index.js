@@ -3,6 +3,7 @@
 import path from 'path';
 import koa from 'koa';
 import compress from 'koa-compress';
+import favicon from 'koa-favicon';
 import proxy from 'koa-proxy';
 import mount from 'koa-mount';
 import serve from 'koa-static';
@@ -20,6 +21,7 @@ const app = koa();
 const jade = new Jade({ viewPath: path.join(__dirname, 'views') });
 
 app.use(compress());
+app.use(favicon(path.join(__dirname, '..', 'public', 'favicon.ico')));
 
 if (__DEV__) {
   app.use(mount('/build', proxy({ host: webpackPublicPath })));

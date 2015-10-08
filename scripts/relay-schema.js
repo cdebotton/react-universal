@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { graphql } from 'graphql';
-import { introspectionQuery } from 'graphql/utils';
+import { introspectionQuery } from 'graphql/utilities';
 import { Schema } from '../data/schema';
 
 (async () => {
@@ -16,6 +16,6 @@ import { Schema } from '../data/schema';
   } else {
     const target = path.join(__dirname, '..', 'dist', 'server', 'schema.json');
     fs.writeFileSync(target, JSON.stringify(result, null, 2));
-    console.log(`Success: ${JSON.stringify(result.errors, null, 2)}`);
+    console.log(`Success: Relay Schema Compiled`);
   }
 })();

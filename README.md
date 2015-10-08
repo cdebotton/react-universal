@@ -12,9 +12,11 @@ A `react` starter kit that handles universal rendering as well as a bunch of ano
 6. `express` for the `graphql` and dev server.
 7. `graphql`, `graphql-relay` for building a backend.
 8. `flow` type checking. I use `atom` with `nuclide`, but you can run flow by typing `flow` int he root of the repository.
-9. `eslint` with the `airbnb` config plus some slight tweaks.
+9. `eslint` with the `airbnb` config plus some slight tweaks, like with flow, I'm linting using `atom` & `nuclide`, but you can simply run `\`npm bin\`/eslint` at the root of the project.
 
 
 ## Not yet implemented
 
-1. `react-relay`, though the tools are included to get started with Relay, including the `graphql` backend, I've decided to not include the start of a Relay based front end until server-side rendering hooks are exposed (facebook/relay#136).
+1. `react-relay`, though the tools are included to get started with Relay, including the `graphql` backend, I've decided to not include the start of a Relay based front end until server-side rendering hooks are exposed [[Provide hooks for server-side rendering #136](https://github.com/facebook/relay/issues/136)].
+
+2. A `database`, still deciding whether to push forward with Neo4j or use `Sequelize` + Postgres.

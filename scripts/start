@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+NODE_ENV=production `npm bin`/concurrent \
+  "./bin/client" \
+  "./bin/graphql"

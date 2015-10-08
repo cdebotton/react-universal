@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production `npm bin`/webpack",
     "prestart": "npm run build -s",
-    "start": "NODE_ENV=production node index",
+    "start": "./scripts/start",
     "test": "npm run test"
   },
   "repository": {
@@ -22,10 +22,12 @@
   "dependencies": {
     "babel": "^5.8.23",
     "babel-plugin-react-transform": "^1.1.1",
+    "concurrently": "^0.1.1",
     "deep-equal": "^1.0.1",
     "express": "^4.13.3",
     "express-graphql": "^0.4.0",
     "font-awesome": "^4.4.0",
+    "forever": "^0.15.1",
     "graphql": "^0.4.7",
     "graphql-relay": "^0.3.2",
     "history": "^1.11.1",

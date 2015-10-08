@@ -44,7 +44,7 @@ export function WriteStatsPlugin(): Function {
   return function writeStats(): void {
     this.plugin('done', (stats) => {
       const json = stats.toJson();
-      const app = json.assetsByChunkName.json;
+      const app = json.assetsByChunkName.app;
       const vendor = json.assetsByChunkName.vendor;
 
       const chunks = [].concat(vendor, app);

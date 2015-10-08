@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
-NODE_ENV=production `npm bin`/concurrent \
-  "./bin/client" \
-  "./bin/graphql"
+NODE_ENV=production \
+  `npm bin`/forever start \
+    --uid "production" \
+    -l "react-universal" \
+    --append \
+    ./index.js

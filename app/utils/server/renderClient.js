@@ -77,7 +77,9 @@ export default function renderClient(): Function {
           </Provider>
         );
 
-        this.render('index', { ...stats, markup });
+        const state = JSON.stringify(store.getState());
+
+        this.render('index', { ...stats, markup, state });
       }
     }
   };

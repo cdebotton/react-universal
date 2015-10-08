@@ -11,3 +11,4 @@ html(lang='en')
     div(id='mount')!= markup
     for src in js
       script(src='/build/#{src}')
+    script(id='__INITIAL_STATE__', type='application/json')!= state

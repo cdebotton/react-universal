@@ -12,6 +12,7 @@
 [options]
 module.system=haste
 munge_underscores=true
+strip_root=true
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe

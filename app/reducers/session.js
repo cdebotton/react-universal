@@ -8,6 +8,7 @@ import {
 
 type SessionState = {
   authed: boolean;
+  userId: ?number;
 };
 
 type ActionType = {
@@ -16,6 +17,7 @@ type ActionType = {
 
 const initialState: SessionState = {
   authed: false,
+  userId: null,
 };
 
 export default function session(

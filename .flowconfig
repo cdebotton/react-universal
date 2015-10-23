@@ -10,8 +10,22 @@
 ./interfaces/
 
 [options]
+esproposal.class_static_field=ignore
+esproposal.class_instance_field=ignore
+
+module.name_mapper='^actions\/(.*)$' -> '<PROJECT_ROOT>/app/actions/\1'
+module.name_mapper='^components\/(.*)$' -> '<PROJECT_ROOT>/app/components/\1'
+module.name_mapper='^constants\/(.*)$' -> '<PROJECT_ROOT>/app/constants/\1'
+module.name_mapper='^containers\/(.*)$' -> '<PROJECT_ROOT>/app/containers/\1'
+module.name_mapper='^entryPoints\/(.*)$' -> '<PROJECT_ROOT>/app/entryPoints/\1'
+module.name_mapper='^reducers\/(.*)$' -> '<PROJECT_ROOT>/app/reducers/\1'
+module.name_mapper='^routes\/(.*)$' -> '<PROJECT_ROOT>/app/routes/\1'
+module.name_mapper='^utils\/(.*)$' -> '<PROJECT_ROOT>/app/utils/\1'
+module.name_mapper='^views\/(.*)$' -> '<PROJECT_ROOT>/app/views/\1'
 module.system=haste
+
 munge_underscores=true
+
 strip_root=true
 
 suppress_type=$FlowIssue
@@ -21,3 +35,6 @@ suppress_type=$FixMe
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(1[0-6]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*www[a-z,_]*\\)?)\\)
 suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(1[0-6]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*www[a-z,_]*\\)?)\\)? #[0-9]+
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
+
+[version]
+0.18.0

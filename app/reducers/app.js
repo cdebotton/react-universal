@@ -3,9 +3,9 @@
 import {
   INCREMENT_COUNTER,
   DECREMENT_COUNTER,
-} from '../constants/actionTypes';
+} from 'constants/actionTypes';
 
-import type { CounterAction } from '../actions/counterActions';
+import type { CounterAction } from 'actions/counterActions';
 
 type StateObject = {
   counter: number;

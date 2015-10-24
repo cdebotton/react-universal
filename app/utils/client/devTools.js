@@ -9,11 +9,12 @@ import {
   LogMonitor,
 } from 'redux-devtools/lib/react';
 
+
 export function createDevToolsWindow(store: Function): void {
   const win = window.open(
     null,
     'redux-devtools',
-    'menubar=no,location=no,resizable=yes,scrollbars=no,status=no'
+    'menubar=no,location=no,resizable=yes,scrollbars=no,height=960,width=480'
   );
 
   win.location.reload();

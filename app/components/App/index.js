@@ -1,1 +1,5 @@
-export default from 'components/App/App';
+/* @flow */
+
+import App from './App';
+
+module.exports = App;

@@ -6,13 +6,13 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-} from '../constants/actionTypes';
+} from 'constants/actionTypes';
 
 export function login(
   email: string,
   password: string
 ): Function {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: LOGIN_REQUEST, email });
 
     try {

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 import styles from './HomeRoute.css';
-import * as counterActions from '../../actions/counterActions';
+import * as counterActions from 'actions/counterActions';
 
 function mapStateToProps(state) {
   return {
@@ -17,13 +17,8 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
-@cssModules(styles)
-export default class HomeRoute extends React.Component {
-  static propTypes = {
-    increment: PropTypes.func.isRequired,
-    counter: PropTypes.number.isRequired,
-  };
+class HomeRoute extends React.Component {
+  static propTypes: {[key: string]: Function};
 
   render() {
     return (
@@ -36,3 +31,13 @@ export default class HomeRoute extends React.Component {
     );
   }
 }
+
+HomeRoute.propTypes = {
+  increment: PropTypes.func.isRequired,
+  counter: PropTypes.number.isRequired,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  cssModules(styles)(HomeRoute)
+);

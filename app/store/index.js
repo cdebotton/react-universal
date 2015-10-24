@@ -12,7 +12,7 @@ import {
 } from 'redux-devtools';
 
 import thunk from 'redux-thunk';
-import rootReducer from '../reducers';
+import rootReducer from 'reducers/index';
 
 let createStoreWithMiddleware: ?Function;
 

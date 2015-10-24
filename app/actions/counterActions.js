@@ -3,7 +3,7 @@
 import {
   INCREMENT_COUNTER,
   DECREMENT_COUNTER,
-} from '../constants/actionTypes';
+} from 'constants/actionTypes';
 
 export type CounterAction = {
   type: string;

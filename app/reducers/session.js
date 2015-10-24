@@ -4,7 +4,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-} from '../constants/actionTypes';
+} from 'constants/actionTypes';
 
 export class SessionError extends Error {
   error: string;

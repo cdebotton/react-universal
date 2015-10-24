@@ -8,19 +8,22 @@ import { paths, globals } from '../config';
 const __DEV__ = globals.__DEV__;
 const __PROD__ = globals.__PROD__;
 
-function notifyError(error: string & Error): void {
-  console.log('\x07' + error);
+const debug = require('debug')('build/utils');
+const error = require('debug')('build/utils:error');
+
+function notifyError(err: string & Error): void {
+  error('\x07' + err);
 }
 
 function notifyWarning(warning: string & Error): void {
-  console.log(warning);
+  debug(warning);
 }
 
 export function ReportStatsPlugin(): Function {
   return function reportStats(): void {
-    this.plugin('done', (stats) => {
+    this.plugin('done', stats => {
       if (__DEV__) {
-        console.log('Compiled client with Webpack');
+        debug('Compiled client with Webpack');
         return;
       }
 
@@ -31,7 +34,7 @@ export function ReportStatsPlugin(): Function {
       } else if (json.warnings.length > 0) {
         json.warnings.forEach(notifyWarning);
       } else {
-        console.log(stats.toString({
+        debug(stats.toString({
           chunks: false,
           colors: true,
         }));
@@ -42,17 +45,18 @@ export function ReportStatsPlugin(): Function {
 
 export function WriteStatsPlugin(): Function {
   return function writeStats(): void {
-    this.plugin('done', (stats) => {
+    this.plugin('done', stats => {
       const json = stats.toJson();
       const app = json.assetsByChunkName.app;
       const vendor = json.assetsByChunkName.vendor;
 
       const chunks = [].concat(vendor, app);
 
-      const assets = chunks.filter((chunk) => {
+      const assets = chunks.filter(chunk => {
         return ['.js', '.css'].indexOf(path.extname(chunk)) > -1;
       }).reduce((memo, chunk) => {
-        const ext = path.extname(chunk).match(/\.(.+)$/)[1];
+        const ext: string = path.extname(chunk).slice(1);
+
         memo[ext] = memo[ext] || [];
         memo[ext].push(chunk);
 
@@ -60,7 +64,7 @@ export function WriteStatsPlugin(): Function {
       }, {});
 
       if (__PROD__) {
-        console.log(
+        debug(
           green('Wrote webpack-stats.json:'),
           JSON.stringify(assets, null, 2)
         );

@@ -1,1 +1,5 @@
-export default from 'routes/HomeRoute/HomeRoute';
+/* @flow */
+
+import HomeRoute from './HomeRoute';
+
+module.exports = HomeRoute;

@@ -72,7 +72,7 @@ export const paths = (() => {
     build: base.bind(null, BUILD),
     data: base.bind(null, DATA),
     dist: base.bind(null, DIST),
-  }
+  };
 })();
 
 /**********************************************************************
@@ -82,17 +82,33 @@ export const paths = (() => {
  * shortened absolute paths rather than relative paths.
  **********************************************************************/
 
-export const aliases = [
+const appAliases = [
   'actions',
   'components',
+  'constants',
   'containers',
+  'entryPoints',
   'reducers',
   'routes',
   'store',
   'styles',
   'utils',
   'views',
-].reduce((acc, x) => ((acc[x] = paths.app(x)) && acc), {});
+].reduce((acc, key) => ((acc[key] = paths.app(key)) && acc), {});
+
+
+const rootAliases = [
+  'build',
+  'bin',
+  'config',
+  'data',
+].reduce((acc, key) => ((acc[key] = paths.base(key)) && acc), {});
+
+export const aliases = {
+  ...appAliases,
+  ...rootAliases,
+};
+
 
 /**********************************************************************
  * Webpack Vendors

@@ -1,7 +1,7 @@
 /* @flow */
 
 import { combineReducers } from 'redux';
-import app from './app';
-import session from './session';
+import app from 'reducers/app';
+import session from 'reducers/session';
 
 export default combineReducers({ app, session });

@@ -18,17 +18,27 @@ esproposal.decorators=ignore
 
 module.name_mapper='^.*\.css$' -> 'empty/object'
 module.name_mapper='^actions\/\(.*\)$' -> '<PROJECT_ROOT>/app/actions/\1'
+module.name_mapper='^actions$' -> '<PROJECT_ROOT>/app/actions'
 module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/app/components/\1'
+module.name_mapper='^components$' -> '<PROJECT_ROOT>/app/components'
 module.name_mapper='^constants\/\(.*\)$' -> '<PROJECT_ROOT>/app/constants/\1'
+module.name_mapper='^constants$' -> '<PROJECT_ROOT>/app/constants'
 module.name_mapper='^containers\/\(.*\)$' -> '<PROJECT_ROOT>/app/containers/\1'
+module.name_mapper='^containers$' -> '<PROJECT_ROOT>/app/containers'
 module.name_mapper='^entryPoints\/\(.*\)$' -> '<PROJECT_ROOT>/app/entryPoints/\1'
+module.name_mapper='^entryPoints$' -> '<PROJECT_ROOT>/app/entryPoints'
 module.name_mapper='^reducers\/\(.*\)$' -> '<PROJECT_ROOT>/app/reducers/\1'
+module.name_mapper='^reducers$' -> '<PROJECT_ROOT>/app/reducers'
 module.name_mapper='^routes\/\(.*\)$' -> '<PROJECT_ROOT>/app/routes/\1'
+module.name_mapper='^routes$' -> '<PROJECT_ROOT>/app/routes'
 module.name_mapper='^store\/\(.*\)$' -> '<PROJECT_ROOT>/app/store/\1'
+module.name_mapper='^store$' -> '<PROJECT_ROOT>/app/store'
 module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/app/utils/\1'
+module.name_mapper='^utils$' -> '<PROJECT_ROOT>/app/utils'
 module.name_mapper='^views\/\(.*\)$' -> '<PROJECT_ROOT>/app/views/\1'
-module.name_mapper='^config' -> '<PROJECT_ROOT>/config'
+module.name_mapper='^views$' -> '<PROJECT_ROOT>/app/views'
 module.name_mapper='^config\/\(.*\)$' -> '<PROJECT_ROOT>/config/\1'
+
 module.system=haste
 
 munge_underscores=true

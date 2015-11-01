@@ -1,6 +1,5 @@
 /* @flow */
 
-import fs from 'fs';
 import path from 'path';
 import koa from 'koa';
 import serve from 'koa-static';
@@ -31,7 +30,7 @@ const statsPath: string = path.resolve(
 let stats: {[key: string]: Array<string>} = { css: [], js: [] };
 
 if (__PROD__) {
-  stats = JSON.parse(fs.readFileSync(statsPath));
+  stats = require(statsPath);
 }
 
 if (__DEV__) {
@@ -46,7 +45,8 @@ app.use(jade);
 
 app.use(function* renderView() {
   if (__DEV__) {
-    stats = JSON.parse(fs.readFileSync(statsPath));
+    stats = require(statsPath);
+    delete require.cache[statsPath];
   }
 
   this.render('index', { ...stats });

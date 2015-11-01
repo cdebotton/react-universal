@@ -20,6 +20,7 @@
     "babel-preset-react": "^6.0.14",
     "babel-preset-stage-0": "^6.0.14",
     "forever": "^0.15.1",
+    "koa-compress": "^1.0.8",
     "koa-jade": "^2.0.0",
     "koa-mount": "^1.3.0",
     "koa-proxy": "^0.4.1",

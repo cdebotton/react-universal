@@ -3,6 +3,7 @@
 import path from 'path';
 import koa from 'koa';
 import serve from 'koa-static';
+import compress from 'koa-compress';
 import mount from 'koa-mount';
 import proxy from 'koa-proxy';
 import Jade from 'koa-jade';
@@ -31,6 +32,7 @@ let stats: {[key: string]: Array<string>} = { css: [], js: [] };
 
 if (__PROD__) {
   stats = require(statsPath);
+  app.use(compress());
 }
 
 if (__DEV__) {

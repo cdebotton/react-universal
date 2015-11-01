@@ -1,0 +1,13 @@
+doctype
+html(lang='en')
+  head
+    title Hello, world!
+    if css
+      for href in css
+        link(rel='stylesheet',href="/admin/build/#{href}")
+
+  body
+    h1 Hello, world!
+    if js
+      for src in js
+        script(src="/admin/build/#{src}")

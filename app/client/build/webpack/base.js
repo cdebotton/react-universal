@@ -16,7 +16,7 @@ export const cssIdentName = __PROD__ ?
   '[name]__[local]___[hash:base64:5]';
 
 export default {
-  name: format('[%s] admin', NODE_ENV.toUpperCase()),
+  name: format('[%s] client', NODE_ENV.toUpperCase()),
   target: 'web',
   entry: {
     vendors,

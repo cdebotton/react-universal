@@ -35,6 +35,10 @@ export const globals = {
 export const vendors = [
   'react',
   'react-dom',
+  'react-relay',
+  'react-router',
+  'react-relay',
+  'history',
 ];
 
 export const alias = {

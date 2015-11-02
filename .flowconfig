@@ -1,5 +1,12 @@
 [ignore]
-.*/node_modules/.*
+.*/node_modules/invariant/.*
+.*/node_modules/koa/.*
+.*/node_modules/koa-static/.*
+.*/node_modules/express/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/babylon/.*
+.*/node_modules/babel-.*
+.*/node_modules/babel-core/.*
 
 [include]
 ./app/

@@ -5,7 +5,6 @@ import {
   paths,
   globals,
   aliases,
-  vendors,
 } from '../../config';
 
 import {
@@ -15,9 +14,12 @@ import {
 
 const { __PROD__ } = globals;
 
-const commonChunkPlugin = new webpack.optimize.CommonsChunkPlugin(
-  'vendor', '[name].[hash].js'
-);
+const commonChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    filename: '[name].[hash].js',
+    minChunks: module => module.resource &&
+                         module.resource.indexOf('node_modules') !== -1,
+});
 commonChunkPlugin.__KARMA_IGNORE__ = true;
 
 export const cssIdentName = __PROD__ ?
@@ -26,7 +28,6 @@ export const cssIdentName = __PROD__ ?
 
 export default {
   entry: {
-    vendor: vendors,
     app: [
       paths.app('entryPoints/client'),
     ],

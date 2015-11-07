@@ -108,22 +108,3 @@ export const aliases = {
   ...appAliases,
   ...rootAliases,
 };
-
-
-/**********************************************************************
- * Webpack Vendors
- * ---------------------------------
- * Modules to load into a separate vendor package.
- **********************************************************************/
-
-export const vendors = [
-  'history',
-  'immutable',
-  'react',
-  'react-relay',
-  'react-redux',
-  'react-router',
-  'redux',
-  'redux-devtools',
-  'redux-devtools/lib/react',
-];
